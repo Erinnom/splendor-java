@@ -18,7 +18,7 @@ Dans un  premier temps, nous allons considérer une version simplifiée du jeu p
 
 L’implémentation va contenir un ensemble de classes dont les trois principales sont les classes `Board`, `Game`, et `Player`. Elles vont permettre de matérialiser le plateau de jeu et de réaliser une partie en impliquant les différents joueurs. Ces classes interagissent et utilisent d’autres classes du projet dont la description est également détaillée.
 
-Vous devez respecter le cahier des charges : respecter le nom des classes et le nom des variables permet d’assurer le fonctionnement avec le code qui est déjà fourni. === Cela est OBLIGATOIRE en vue d’une potentielle vérification automatique de votre code ===. Merci de faire une relecture de votre code en vérifiant ce point avant votre rendu.
+Vous devez respecter le cahier des charges : respecter le nom des classes et le nom des variables permet d’assurer le fonctionnement avec le code qui est déjà fourni.  Cela est OBLIGATOIRE en vue d’une potentielle vérification automatique de votre code . Merci de faire une relecture de votre code en vérifiant ce point avant votre rendu.
 
 ### 1.	La classe Board
 
@@ -151,7 +151,7 @@ La classe `Player` sera complétée par
 - une méthode `addPurchasedCard`, qui permet d’ajouter une carte donnée à la liste des cartes achetées par le joueur.
 - une méthode `canBuyCard` qui vérifie si le joueur a assez de ressources pour acheter une carte donnée
 
-La méthode `toStringArray` === (déjà présente) === permet de visualiser les informations sur un joueur. Pour cette méthode, il faut décommenter le code en commentaires (/* … */) et remplacer les morceaux de code “ACOMPLETER” en s’aidant des commentaires (//). 
+La méthode `toStringArray`  (déjà présente)  permet de visualiser les informations sur un joueur. Pour cette méthode, il faut décommenter le code en commentaires (/* … */) et remplacer les morceaux de code “ACOMPLETER” en s’aidant des commentaires (//). 
 
 La classe `Player` imposera également la redéfinition des méthodes `chooseAction` et `chooseDiscardingTokens` dont l’implémentation dépendra du type de joueurs.
 
