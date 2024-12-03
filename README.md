@@ -1,5 +1,18 @@
-# Cahier des Charges
+# Commande de base pour le projet Splendor
 
+```bash
+git add --all # pour ajouter tous les fichiers modifiés
+git commit -m "Message de commit" -m "information complémentaire" # pour commiter les modifications
+git pull origin --rebase # pour récupérer les modifications sur le serveur
+
+# En cas de conflit, il faut les résoudre, puis faire
+# git add --all
+# git rebase --continue
+
+git push origin # pour envoyer les modifications sur le serveur
+```
+
+# Cahier des Charges
 
 ## Présentation générale
 
@@ -26,10 +39,10 @@ L'objectif de la classe `Board` est de préparer le tableau de jeu, et de le met
 
 ![Plateau Splendor](./images/splendor_board.png)
 
-Le plateau de jeu (ci-contre) est constitué de quatre éléments principaux : 
+Le plateau de jeu (ci-contre) est constitué de quatre éléments principaux :
 1.	3 piles de cartes développement (`DevCard`) faces cachées qui correspondent à trois niveaux,
 2.	les cartes cartes développement (`DevCard`) faces visibles que les joueurs peuvent acheter,
-3.	les tuiles nobles (`Noble`, classe qui n’est pas à implémenter dans la version simplifiée), et 
+3.	les tuiles nobles (`Noble`, classe qui n’est pas à implémenter dans la version simplifiée), et
 4.	les jetons ressources (`Resources`).
 
 #### Initialisation
@@ -79,7 +92,7 @@ Afin de modéliser une pile de cartes faces cachées, nous vous proposons d’ut
 Option 1 : un tableau
 Si vous utilisez un tableau, vous devez connaître à l’initialisation du tableau le nombre de cartes par niveau. Cette information doit être extraite du fichier stats.csv avant la lecture et la sauvegarde des cartes.
 Option 2 :  Stack
-La classe Stack permet d’implémenter une structure de données de type pile (LIFO: Last In First Out). Avant son utilisation, vous devez vous familiariser avec les méthodes présentes dans cette classe et faire le lien avec le cours de structure de données : 
+La classe Stack permet d’implémenter une structure de données de type pile (LIFO: Last In First Out). Avant son utilisation, vous devez vous familiariser avec les méthodes présentes dans cette classe et faire le lien avec le cours de structure de données :
 
 ![Source Stacks and Queues (Princeton). [lien](https://www.cs.princeton.edu/courses/archive/fall14/cos126/lectures/14-StacksQueues-2x2.pdf) ](./images/ss_stack.png)
 
@@ -91,7 +104,7 @@ Pour modéliser les cartes faces visibles, nous proposons l’utilisation d’**
 
 #### Interaction avec le plateau de jeu
 
-La classe Board doit implémenter l’interface `Displayable`, dont le code source est déjà fourni. La classe Board doit comporter 
+La classe Board doit implémenter l’interface `Displayable`, dont le code source est déjà fourni. La classe Board doit comporter
 - une méthode `getNbResource` qui en fonction du type de ressource retourne le nombre de ressources disponible sur le plateau de jeu.
 - une méthode `setNbResource` qui permet d’initialiser le nombre de ressources d’un type donné.
 - une méthode `updateNbResource` qui prend en paramètre un type de ressource et une quantité (v), et qui ajoute (v>0) ou supprime (v<0) cette quantité à la ressource correspondante sur le plateau de jeu. Le nombre de ressources disponibles pour chaque type ne pourra pas être inférieur à 0.
@@ -104,8 +117,8 @@ La classe Board doit implémenter l’interface `Displayable`, dont le code sour
 
 Il faudra également compléter les trois méthodes qui permettent de visualiser le plateau de jeu :
 - la méthode `deckToStringArray`, qui permet de visualiser la pile de cartes faces cachées pour un niveau donné. Le nombre de cartes faces cachées est indiqué dans la visualisation. Vous devez donc modifier la ligne de code “int nbCards = 0”  en remplaçant “0” par le nombre actuel de cartes encore disponible.
-- la méthode `resourcesToStringArray`, qui permet de visualiser les ressources disponibles. Il faut décommenter le code en commentaires (/* … */) et remplacer les morceaux de code “ACOMPLETER” en s’aidant des commentaires (//). 
-- la méthode boardToStringArray, qui permet de visualiser l’ensemble du plateau de jeu. Cette méthode utilise le code de la classe `Display`, qui est déjà donné et ne doit pas être modifié. Comme précédemment, il faut décommenter le code en commentaires (/* … */) et remplacer les morceaux de code “ACOMPLETER” en s’aidant des commentaires (//). 
+- la méthode `resourcesToStringArray`, qui permet de visualiser les ressources disponibles. Il faut décommenter le code en commentaires (/* … */) et remplacer les morceaux de code “ACOMPLETER” en s’aidant des commentaires (//).
+- la méthode boardToStringArray, qui permet de visualiser l’ensemble du plateau de jeu. Cette méthode utilise le code de la classe `Display`, qui est déjà donné et ne doit pas être modifié. Comme précédemment, il faut décommenter le code en commentaires (/* … */) et remplacer les morceaux de code “ACOMPLETER” en s’aidant des commentaires (//).
 
 ### 2.	La classe `Game`
 
@@ -123,7 +136,7 @@ La méthode `play` permet d’implémenter une phase de jeu pour chacun des joue
 La méthode `move` va permettre au joueur de choisir le type d’actions qu’il souhaite réaliser (`chooseAction`), puis de réaliser cette action (`process`), puis d’afficher l’action réalisée.
 Afin de réaliser l’implémentation des différents codes, nous vous demandons d’implémenter une interface `Action`, qui imposera la redéfinition des méthodes `process` (il faut réfléchir aux paramètres de cette méthode) et la méthode `toString`. Cette interface sera implémentée par quatre classes que vous devez implémenter : `PickSameTokensAction` (prendre deux jetons de la même ressource), `PickDiffTokensAction` (prendre trois jetons de ressources différentes), `BuyCardAction` (acheter une carte développement), `DiscardTokensAction` (défausser des jetons), et `PassAction` (passer son tour).
 
-#### Fin du jeu 
+#### Fin du jeu
 Afin de simuler la fin du jeu, deux méthodes seront utilisées
 - la méthode `isGameOver`, qui retourne “vraie” si un joueur a plus de 15 points de prestige
 - a méthode `gameOver`, qui félicite et affiche le nom du gagnant. Il faut penser à gérer le [cas d’égalité](https://www.regledujeu.fr/splendor/#:~:text=le%20joueur%20concern%C3%A9.-,III%20%E2%80%93%20Fin%20de%20la%20partie,-Lorsqu%E2%80%99un%20joueur%20atteint).
@@ -151,7 +164,7 @@ La classe `Player` sera complétée par
 - une méthode `addPurchasedCard`, qui permet d’ajouter une carte donnée à la liste des cartes achetées par le joueur.
 - une méthode `canBuyCard` qui vérifie si le joueur a assez de ressources pour acheter une carte donnée
 
-La méthode `toStringArray`  (déjà présente)  permet de visualiser les informations sur un joueur. Pour cette méthode, il faut décommenter le code en commentaires (/* … */) et remplacer les morceaux de code “ACOMPLETER” en s’aidant des commentaires (//). 
+La méthode `toStringArray`  (déjà présente)  permet de visualiser les informations sur un joueur. Pour cette méthode, il faut décommenter le code en commentaires (/* … */) et remplacer les morceaux de code “ACOMPLETER” en s’aidant des commentaires (//).
 
 La classe `Player` imposera également la redéfinition des méthodes `chooseAction` et `chooseDiscardingTokens` dont l’implémentation dépendra du type de joueurs.
 
@@ -168,5 +181,3 @@ Les jetons à retirer (si le nombre est supérieur à 10) est réalisé de mani�
 
 (iii) Le joueur humain `HumanPlayer`
 Les mêmes méthodes que pour le `DumbRobotPlayer` sont à implémenter, mais il faut demander à l’utilisateur ces choix, et vérifier s’ils sont bien exécutables.
-
-
