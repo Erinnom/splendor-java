@@ -1,5 +1,5 @@
 /*
- * @author	Corentin Dufourg
+ * @author    Corentin Dufourg
  * @version     1.1
  * @since       1.0
  */
@@ -29,13 +29,30 @@ public class Game {
     }
 
     public Game(int nbOfPlayers){
-        /*
-         * ACOMPLETER
-         */
+        try{
+            board = new Board();
+            for (int i=0; i<nbOfPlayers; i++){
+                
+                if (i==0) {
+                    
+                    //players.add(new HumanPlayer());
+                    
+                }else{
+                    
+                    //players.add(new DumbPlayer());
+                }
+            
+            
+            
+            }
+        }
+        catch(IllegalArgumentException e){
+            e.printStackTrace();
+        }
     }
 
     public int getNbPlayers(){
-        return 0; //-- AMODIFIER
+        return players.size();
     }
 
     private void display(int currentPlayer){
