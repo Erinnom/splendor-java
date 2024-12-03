@@ -1,4 +1,4 @@
-public enum Resource {
+public enum Ressource {
     DIAMOND,
     SAPPHIRE,
     EMERALD,

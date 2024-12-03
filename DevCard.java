@@ -1,4 +1,25 @@
 public class DevCard implements Displayable {
+    // Attributs
+    
+    int tier;
+    Ressources coutRessources;
+    int points;
+    String type;
+    
+    // Constructeur
+    
+    public DevCard(int tier,int countDIAMOND,int countSAPPHIRE, int countEMERALD, int countRUBY,int countONYX, int points, String type)
+    {
+        this.tier = tier;
+        this.points = points;
+        this.type = type;
+        
+        coutRessources = new Ressources(countDIAMOND,countSAPPHIRE, countEMERALD, countRUBY,countONYX);
+        
+        
+    }
+    
+    // Méthodes
     
     public String[] toStringArray(){
         /** EXAMPLE
