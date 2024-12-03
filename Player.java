@@ -1,4 +1,5 @@
-
+import java.util.ArrayList;
+//public abstract class Player implements Displayable
 public abstract class Player implements Displayable {
 
     /* --- Stringers --- */
@@ -35,4 +36,40 @@ public abstract class Player implements Displayable {
         */
         return strPlayer;
     }
-}
+    private int id;
+    private String name;
+    private int points;
+    private ArrayList purchasedCards;
+    private ArrayList<Resource> resource;
+    private Resource resources;
+
+    public Player(String name){
+        id = 0;
+        this.name = name;
+        points = 0;
+        purchasedCards = new ArrayList<>();
+        resource = new ArrayList<>();
+        
+    }
+    
+    //accesseurs
+    public String getName(){
+        return name;
+    }
+    public int getPoints(){
+        return points;
+    }
+    public int getNbTokens(){
+        return resource.size();
+    }
+    public int getNbPurchasedCards(){
+        return purchasedCards.size();
+    }
+    
+    public void updatePoints(int point){
+        points += point;
+    }
+    
+    public abstract void chooseAction();
+    public abstract void chooseDiscardingTokens();
+    }
