@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.Collections;
 
 public class Board implements Displayable {
-
+    private ArrayList<Stack<DevCard>> stackCards;
     /* --- Stringers --- */
 
     private String[] deckToStringArray(int tier){
@@ -87,4 +87,50 @@ public class Board implements Displayable {
     public String[] toStringArray() {
         return boardToStringArray();
     }
+
+    public Board() throws FileNotFoundException {
+        String nom_fichier = "stats.csv";
+        stackCards = new ArrayList<Stack<DevCard>>();
+        Stack<DevCard> tier1 = new Stack<DevCard>();
+        Stack<DevCard> tier2 = new Stack<DevCard>();
+        Stack<DevCard> tier3 = new Stack<DevCard>();
+        boolean notFirstLine = false;
+        try (Scanner scanner = new Scanner(new File(nom_fichier))) {
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
+                if (notFirstLine){
+                    int tier = Integer.parseInt(line.substring(0,1));
+                    int coutDIAMOND = Integer.parseInt(line.substring(2,3));
+                    int coutSAPPHIRE = Integer.parseInt(line.substring(4,5));
+                    int coutEMERALD = Integer.parseInt(line.substring(6,7));
+                    int coutRUBY = Integer.parseInt(line.substring(8,9));
+                    int coutONYX = Integer.parseInt(line.substring(10,11));
+                    int points = Integer.parseInt(line.substring(12,13));
+                    String type = line.substring(14);
+                    //Créer la carte
+                    DevCard newCard = new DevCard(tier, coutDIAMOND, coutSAPPHIRE, coutEMERALD, coutRUBY, coutONYX, points, type);
+                    //Ensuite, ajouter au tas de carte associé.
+                    if (tier == 1){
+                        tier1.push(newCard);
+                    }
+                    else if(tier == 2){
+                        tier2.push(newCard);
+                    }
+                    else if(tier == 3){
+                        tier3.push(newCard);
+                    }
+
+                }
+                else{
+                    notFirstLine = true;
+                }
+            }
+        }
+        
+        //Mettre les tas de cartes dans stacksCards
+        stackCards.add(tier1);
+        stackCards.add(tier2);
+        stackCards.add(tier3);
+    }
+
 }
