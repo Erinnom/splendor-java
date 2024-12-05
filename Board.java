@@ -9,7 +9,9 @@ import java.util.Set;
 import java.util.Collections;
 
 public class Board implements Displayable {
-
+    private ArrayList<Stack<DevCard>> stackCards;
+    private DevCard[][] visibleCards;
+    private Ressources ressources;
     /* --- Stringers --- */
 
     private String[] deckToStringArray(int tier){
@@ -24,7 +26,7 @@ public class Board implements Displayable {
          * └────────┘ │
          *  ╲________╲│
          */
-        int nbCards = 0; //- AREMPLEACER par le nombre de cartes présentes
+        int nbCards = stackCards.get(tier-1).size(); //- AREMPLEACER par le nombre de cartes présentes
         String[] deckStr = {"\u250C\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510  ",
                             "\u2502        \u2502\u2572 ",
                             "\u2502 reste: \u2502 \u2502",
@@ -42,20 +44,15 @@ public class Board implements Displayable {
          * Resources disponibles : 4♥R 4♣E 4♠S 4♦D 4●O
          */
         String[] resStr = {"Resources disponibles : "};
-        /*
-         * A decommenter
-        for(ACOMPLETER){ //-- parcourir l'ensemble des resources (res) en utilisant l'énumération Resource
-            resStr[0] += resources.getNbResource(res)+res.toSymbol()+" ";
+        for(Ressource res : Ressource.values()){
+            resStr[0] += ressources.NbRessource(res)+res.toSymbol()+" ";
         }
-                 */
         resStr[0] += "        ";
         return resStr;
     }
 
     private String[] boardToStringArray(){
         String[] res = Display.emptyStringArray(0, 0);
-        /*
-         * 
 
         //Deck display
         String[] deckDisplay = Display.emptyStringArray(0, 0);
@@ -65,9 +62,9 @@ public class Board implements Displayable {
 
         //Card display
         String[] cardDisplay = Display.emptyStringArray(0, 0);
-        for(ACOMPLETER){ //-- parcourir les différents niveaux de carte (i)
+        for(int i=0; i<visibleCards.length;i++){ //-- parcourir les différents niveaux de carte (i)
             String[] tierCardsDisplay = Display.emptyStringArray(8, 0);
-            for(ACOMPLETER){ //-- parcourir les 4 cartes faces visibles pour un niveau donné (j)
+            for(int j=0; j<visibleCards[i].length;j++){ //-- parcourir les 4 cartes faces visibles pour un niveau donné (j)
                 tierCardsDisplay = Display.concatStringArray(tierCardsDisplay, visibleCards[i][j]!=null ? visibleCards[i][j].toStringArray() : DevCard.noCardStringArray(), false);
             }
             cardDisplay = Display.concatStringArray(cardDisplay, Display.emptyStringArray(1, 40), true);
@@ -79,7 +76,6 @@ public class Board implements Displayable {
         res = Display.concatStringArray(res, resourcesToStringArray(), true);
         res = Display.concatStringArray(res, Display.emptyStringArray(35, 1, " \u250A"), false);
         res = Display.concatStringArray(res, Display.emptyStringArray(1, 54, "\u2509"), true);
-                 */
         return res;
     }
 
@@ -87,4 +83,66 @@ public class Board implements Displayable {
     public String[] toStringArray() {
         return boardToStringArray();
     }
+
+    public Board(int nbJoueurs) throws FileNotFoundException {
+        String nom_fichier = "stats.csv";
+        stackCards = new ArrayList<Stack<DevCard>>();
+        Stack<DevCard> tier1 = new Stack<DevCard>();
+        Stack<DevCard> tier2 = new Stack<DevCard>();
+        Stack<DevCard> tier3 = new Stack<DevCard>();
+        visibleCards = new DevCard[3][4];
+        boolean notFirstLine = false;
+        try (Scanner scanner = new Scanner(new File(nom_fichier))) {
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
+                if (notFirstLine){
+                    int tier = Integer.parseInt(line.substring(0,1));
+                    int coutDIAMOND = Integer.parseInt(line.substring(2,3));
+                    int coutSAPPHIRE = Integer.parseInt(line.substring(4,5));
+                    int coutEMERALD = Integer.parseInt(line.substring(6,7));
+                    int coutRUBY = Integer.parseInt(line.substring(8,9));
+                    int coutONYX = Integer.parseInt(line.substring(10,11));
+                    int points = Integer.parseInt(line.substring(12,13));
+                    String type = line.substring(14);
+                    //Créer la carte
+                    DevCard newCard = new DevCard(tier, coutDIAMOND, coutSAPPHIRE, coutEMERALD, coutRUBY, coutONYX, points, type);
+                    //Ensuite, ajouter au tas de carte associé.
+                    if (tier == 1){
+                        tier1.push(newCard);
+                    }
+                    else if(tier == 2){
+                        tier2.push(newCard);
+                    }
+                    else if(tier == 3){
+                        tier3.push(newCard);
+                    }
+
+                }
+                else{
+                    notFirstLine = true;
+                }
+            }
+        }
+        
+        //Mettre les tas de cartes dans stacksCards
+        stackCards.add(tier1);
+        stackCards.add(tier2);
+        stackCards.add(tier3);
+        for(int i=0; i<stackCards.size();i++){
+            for(int j=0; j<4;j++){
+                visibleCards[i][j] = (stackCards.get(i).pop());
+            }
+        }
+        //Initialisation des ressources
+        int nbRes;
+        if(nbJoueurs == 2){
+            nbRes = 4;
+        }else if(nbJoueurs == 3){
+            nbRes = 5;
+        }else{
+            nbRes = 7;
+        }
+        ressources = new Ressources(nbRes,nbRes,nbRes,nbRes,nbRes);
+    }
+
 }
