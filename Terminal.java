@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 /**
  * Lectures de données au clavier
@@ -57,6 +58,20 @@ public class Terminal {
     } catch(NumberFormatException ignore){
     }
     return x;
+  }
+  
+  public String playerChoice(String message, ArrayList expectedResult){
+      System.out.println(message);
+      String choice = this.readString();
+      while (true){
+          if ( expectedResult.contains(choice) == false ){
+              System.out.println("Erreur de saisie, veuillez réessayer");
+              choice = this.readString();
+          } else {
+              break;
+          }
+      }
+      return choice;
   }
 
 }

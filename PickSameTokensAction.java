@@ -26,26 +26,42 @@ public class PickSameTokensAction implements Action
     }
 
     public void process(){
-        //System.out.println("Choisissez une ressource parmi les suivantes :" + board.getAvailableResources());
-        int choix = term.readInt();
+        System.out.println("Choisissez une ressource parmi les suivantes :" + board.getAvailableResources());
+        String message = "Choisissez une ressource parmi les suivantes :";
+        Ressource availableR[] = board.getAvailableResources();
+        
+        for (Ressource elem : availableR){
+            
+            System.out.println(elem);
+        }
+        
+        String choice = term.playerChoice(message,availableR);
         Ressource ressource;
-        switch(choix){
-            case 0:
-                ressource = Ressource.DIAMOND; 
-            case 1:
+        
+        switch(choice){
+            
+            case "DIAMOND":
+                ressource = Ressource.DIAMOND;
+                break;
+            case "SAPHIRRE":
                 ressource = Ressource.SAPPHIRE; 
-            case 2:
-                ressource = Ressource.EMERALD; 
-            case 3:
-                ressource = Ressource.DIAMOND; 
-            case 4:
-                ressource = Ressource.DIAMOND; 
+                break;
+            case "EMERALD":
+                ressource = Ressource.EMERALD;
+                break;
+            case "ONYX":
+                ressource = Ressource.ONYX; 
+                break;
+            case "RUBY":
+                ressource = Ressource.RUBY; 
+                break;
             default:
                 break;
         }
-        //board.updateNbResource(ressource, 2);
-        //board.setNbResource(ressource, -2);
-        //player.updateNbResource(ressource, 2);
+        
+        board.updateNbResource(ressource, 2);
+        board.setNbResource(ressource, -2);
+        player.updateNbResource(ressource, 2);
         
     }
     
