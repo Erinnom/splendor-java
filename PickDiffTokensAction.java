@@ -7,7 +7,7 @@
  */
 import java.util.ArrayList;
 
-public class PickDifferentTokensAction implements Action
+public class PickDiffTokensAction implements Action
 {
     // variables d'instance - remplacez l'exemple qui suit par le vôtre
     private Player player;
@@ -17,7 +17,7 @@ public class PickDifferentTokensAction implements Action
     /**
      * Constructeur d'objets de classe PickSameTokensAction
      */
-    public PickDifferentTokensAction(Player player, Board board)
+    public PickDiffTokensAction(Player player, Board board)
     {
         // initialisation des variables d'instance
         this.player = player;
@@ -67,12 +67,13 @@ public class PickDifferentTokensAction implements Action
             board.setNbResource(ressource, -1);
             player.updateNbResource(ressource, 1);
             availableR.remove(ressource);
+            this.toString();
         }
         
     }
     
-    public String toString(Ressource resource) {
+    public String toString() {
         String msg = "";
-        return msg = "Le joueur à choisi de prendre 2 ressources de types" + ressource;
+        return msg = "Le joueur à choisi de prendre 1 ressources de types" + ressource;
     }
 }

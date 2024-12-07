@@ -26,46 +26,54 @@ public class PickSameTokensAction implements Action
     }
 
     public void process(){
-        System.out.println("Choisissez une ressource parmi les suivantes :" + board.getAvailableResources());
-        String message = "Choisissez une ressource parmi les suivantes :";
         Ressource availableR[] = board.getAvailableResources();
         
-        for (Ressource elem : availableR){
+        while (true){
+            String message = "Choisissez une ressource parmi les suivantes :";
             
-            System.out.println(elem);
-        }
-        
-        String choice = term.playerChoice(message,availableR);
-        Ressource ressource;
-        
-        switch(choice){
             
-            case "DIAMOND":
-                ressource = Ressource.DIAMOND;
+            for (Ressource elem : availableR){
+                
+                System.out.println(elem);
+            }
+            
+            String choice = term.playerChoice(message,availableR);
+            
+            switch(choice){
+                
+                case "DIAMOND":
+                    ressource = Ressource.DIAMOND;
+                    break;
+                case "SAPHIRRE":
+                    ressource = Ressource.SAPPHIRE; 
+                    break;
+                case "EMERALD":
+                    ressource = Ressource.EMERALD;
+                    break;
+                case "ONYX":
+                    ressource = Ressource.ONYX; 
+                    break;
+                case "RUBY":
+                    ressource = Ressource.RUBY; 
+                    break;
+                default:
+                    break;
+            }
+            
+            if (canGiveSameTokens(ressource)){
                 break;
-            case "SAPHIRRE":
-                ressource = Ressource.SAPPHIRE; 
-                break;
-            case "EMERALD":
-                ressource = Ressource.EMERALD;
-                break;
-            case "ONYX":
-                ressource = Ressource.ONYX; 
-                break;
-            case "RUBY":
-                ressource = Ressource.RUBY; 
-                break;
-            default:
-                break;
+            } else {
+                System.out.println("Vous ne pouvez pas choisir cette ressource car il n'y en a pas assez");
+            }
         }
-        
         board.updateNbResource(ressource, 2);
         board.setNbResource(ressource, -2);
         player.updateNbResource(ressource, 2);
+        this.toString();
         
     }
     
-    public String toString(Ressource resource) {
+    public String toString() {
         String msg = "";
         return msg = "Le joueur à choisi de prendre 2 ressources de types" + ressource;
     }
