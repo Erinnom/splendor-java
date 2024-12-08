@@ -1,5 +1,5 @@
 /**
- * Represents a Development Card (DevCard) in a game.²
+ * Represents a Development Card (DevCard) in a game.
  * Each DevCard has a tier, resource cost, point value, and a resource type it generates.
  * It can be displayed in both text and symbolic formats.
  * 
@@ -33,7 +33,15 @@ public class DevCard implements Displayable {
         this.resourceType = type;
         this.coutResources = new Resources(countDIAMOND, countSAPPHIRE, countEMERALD, countRUBY, countONYX);
     }
-
+    // Methodes
+    
+    public int getTier(){
+        return tier;
+    }
+    
+    public Resource getResourceType(){
+        return resourceType;
+    }
     /**
      * Gets the point value of the card.
      *
@@ -45,19 +53,6 @@ public class DevCard implements Displayable {
 
     /**
      * Converts the card to a symbolic array of strings for display purposes.
-     * 
-     * Example format:
-     * <pre>
-     * ┌────────┐
-     * │①    ♠S│
-     * │        │
-     * │        │
-     * │2 ♠S    │
-     * │2 ♣E    │
-     * │3 ♥R    │
-     * └────────┘
-     * </pre>
-     *
      * @return an array of strings representing the card
      */
     public String[] toStringArray() {
@@ -99,19 +94,6 @@ public class DevCard implements Displayable {
 
     /**
      * Returns a symbolic representation of an empty card.
-     * 
-     * Example format:
-     * <pre>
-     * ┌────────┐
-     * │ \    / │
-     * │  \  /  │
-     * │   \/   │
-     * │   /\   │
-     * │  /  \  │
-     * │ /    \ │
-     * └────────┘
-     * </pre>
-     *
      * @return an array of strings representing an empty card
      */
     public static String[] noCardStringArray() {
@@ -129,8 +111,6 @@ public class DevCard implements Displayable {
 
     /**
      * Converts the card to a descriptive string format.
-     * Example: "3pts, type ♠S | coût: 2♣E 1♦D"
-     *
      * @return a string representation of the card
      */
     public String toString() {

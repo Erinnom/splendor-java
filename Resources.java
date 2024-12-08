@@ -56,7 +56,7 @@ public class Resources {
      * @param resource the type of resource (DIAMOND, SAPPHIRE, EMERALD, RUBY, ONYX)
      * @param r the new count for the resource (must be non-negative)
      */
-    public void setResource(Resource resource, int r) {
+    public void setNbResource(Resource resource, int r) {
         if (r >= 0) {
             switch (resource) {
                 case DIAMOND:
