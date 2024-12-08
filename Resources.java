@@ -1,3 +1,4 @@
+
 /**
  * The Resources class is used to manage a collection of resources, 
  * including DIAMOND, SAPPHIRE, EMERALD, RUBY, and ONYX. 
@@ -149,7 +150,7 @@ public class Resources {
                         avaible_resources[indice] = Resource.RUBY;
                         break;
                 }
-                indice++;
+                indice+=1;
             }
         }
         return avaible_resources;

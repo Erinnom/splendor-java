@@ -6,12 +6,12 @@
  * @author Erinnom
  */
 public enum Resource {
-
     DIAMOND,
     SAPPHIRE,
     EMERALD,
     ONYX,
     RUBY;
+
 
     /**
      * Provides a human-readable string representation of the resource, 
