@@ -13,10 +13,10 @@ public class HumanPlayer extends Player
     /**
      * Constructeur d'objets de classe HumanPlayer
      */
-    public HumanPlayer(String name)
+    public HumanPlayer(int id,String name)
     {
         // initialisation des variables d'instance
-        super(name);
+        super(id,name);
     }
 
     /**

@@ -13,10 +13,10 @@ public class DumbRobotPlayer extends Player
     /**
      * Constructeur d'objets de classe DumbRobotPlayer
      */
-    public DumbRobotPlayer(String name)
+    public DumbRobotPlayer(int id,String name)
     {
         // initialisation des variables d'instance
-        super(name);
+        super(id,name);
         
     }
 
