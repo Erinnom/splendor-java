@@ -5,6 +5,7 @@
  */
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class Game {
     /* L'affichage et la lecture d'entrée avec l'interface de jeu se fera entièrement via l'attribut display de la classe Game.
@@ -28,26 +29,36 @@ public class Game {
         display.close();
     }
 
-    public Game(int nbOfPlayers){
-        try{
+    public Game(int nbOfPlayers) throws IllegalArgumentException {
+        if (nbOfPlayers >= 2 && nbOfPlayers <= 4 ) {
+            
             board = new Board();
+            players = new ArrayList<Player>();
+            int id;
+            String name;
+            Terminal term = new Terminal();
+            
             for (int i=0; i<nbOfPlayers; i++){
                 
                 if (i==0) {
                     
-                    //players.add(new HumanPlayer());
+                    id = i;
+                    name = term.readString();
+                    HumanPlayer player = new HumanPlayer(id, name);
+                    players.add(player);
                     
                 }else{
                     
-                    //players.add(new DumbPlayer());
+                    id = i;
+                    name = "DumbRobot"+i;
+                    DumbRobotPlayer robot = new DumbRobotPlayer(id, name);
+                    players.add(robot);
                 }
-            
-            
             
             }
         }
-        catch(IllegalArgumentException e){
-            e.printStackTrace();
+        else {
+            throw new IllegalArgumentException("nombre de joueurs incorrect");
         }
     }
 
@@ -73,34 +84,88 @@ public class Game {
     }
 
     public void play(){
-        /*
-         * ACOMPLETER
-         */
-    }
+        int turn = 0;
+        while ( !isGameOver()){
+            
+            this.move(players.get(turn));
+            
+            if (players.get(turn).getNbTokens() > 10){
+                this.discardToken(players.get(turn));
+                }
+    
+            turn ++;
+            }
+        this.gameOver();
+        }
+
 
     private void move(Player player){
-        /*
-         * ACOMPLETER
-         */
+        ArrayList<String> possible = new ArrayList<String>();
+        possible.add("1");
+        possible.add("2");
+        possible.add("3");
+        
+        String msg;   
+        String choice;
+        Terminal term = new Terminal();
+        
+        msg ="Que voulez-vous faire pour ce tour : \n 1 : prendre 2 jetons de la même ressource \n 2 : prendre 3 jetons de ressources différentes \n 3 : acheter une carte de développement";
+        choice = term.playerChoice(msg , possible);
+            
+        switch(choice){
+            
+            case "1" :
+                PickDiffTokensAction pickDiff = new PickDiffTokensAction(player, board);
+                pickDiff.process();
+                break;
+                
+            case "2" :
+                PickSameTokensAction pickSame = new PickSameTokensAction(player,board);
+                pickSame.process();
+                break;
+                
+            case "3" :
+                BuyCardAction buyCard = new BuyCardAction(board, player);
+                buyCard.process();
+                break;
+        }
     }
 
     private void discardToken(Player player){
-        /*
-         * ACOMPLETER
-         */
+        DiscardTokensAction discard = new DiscardTokensAction(board, player);
+        discard.process();
     }
 
     public boolean isGameOver(){
-        /*
-         * ACOMPLETER
-         */
-        return false; //-- AMODIFIER
+        for (Player player : players){
+            
+            if( player.getPoint() > 15){
+                
+                return true;
+            }
+        return false;
+        }
     }
 
     private void gameOver(){
-        /*
-         * ACOMPLETER
-         */
+        boolean draw = false;
+        int winner = 0;
+        int winner2 = 0;
+        for (int i = 0; i<this.getNbPlayers();i++){
+            if (players.get(i).getPoint() > players.get(winner).getPoint()){
+                winner = i;
+            } else if (players.get(i).getPoint() == players.get(winner).getPoint()){
+                draw = true;
+                winner2 = i;
+            }
+        }
+        if (draw){
+            
+            if (players.get(winner).getNbPurchasedCards() < players.get(winner2).getNbPurchasedCards()){
+                winner = winner2;
+            }
+        }
+        System.out.println("félicitation à " + players.get(winner.getName()) + " pour sa victoire écrasante sur ces adversaires");
     }
 
 

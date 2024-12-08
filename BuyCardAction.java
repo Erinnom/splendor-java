@@ -60,6 +60,7 @@ public class BuyCardAction implements Action
                 }
                 
                 player.addPurchaseCard();
+                player.updatePoints(card.points);
                 board.updateCard(card);
                 break;
                 
