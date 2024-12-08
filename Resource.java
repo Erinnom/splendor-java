@@ -1,10 +1,10 @@
-public enum Ressource {
+public enum Resource {
     DIAMOND,
     SAPPHIRE,
     EMERALD,
     ONYX,
     RUBY;
-    
+
     public String toString(){
         switch(this){
             case EMERALD:
