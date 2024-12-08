@@ -80,7 +80,7 @@ public class Board implements Displayable {
         }else{
             nbRes = 7;
         }
-        ressources = new Ressources(nbRes,nbRes,nbRes,nbRes,nbRes);
+        resources = new Resources(nbRes,nbRes,nbRes,nbRes,nbRes);
     }
     
     // Méthodes
@@ -143,11 +143,8 @@ public class Board implements Displayable {
          * └────────┘ │
          *  ╲________╲│
          */
-<<<<<<< HEAD
-        int nbCards = stackCards.get(tier).size(); //- AREMPLEACER par le nombre de cartes présentes
-=======
+
         int nbCards = stackCards.get(tier-1).size(); //- AREMPLEACER par le nombre de cartes présentes
->>>>>>> Victor
         String[] deckStr = {"\u250C\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510  ",
                             "\u2502        \u2502\u2572 ",
                             "\u2502 reste: \u2502 \u2502",
@@ -165,14 +162,9 @@ public class Board implements Displayable {
          * Resources disponibles : 4♥R 4♣E 4♠S 4♦D 4●O
          */
         String[] resStr = {"Resources disponibles : "};
-<<<<<<< HEAD
-        
-        for(Resource res:resources.getAvaibleResources()){ //-- parcourir l'ensemble des resources (res) en utilisant l'énumération Resource
+
+        for(Resource res : Resource.values()){
             resStr[0] += resources.getNbResource(res)+res.toSymbol()+" ";
-=======
-        for(Ressource res : Ressource.values()){
-            resStr[0] += ressources.NbRessource(res)+res.toSymbol()+" ";
->>>>>>> Victor
         }
         resStr[0] += "        ";
         return resStr;
@@ -180,10 +172,6 @@ public class Board implements Displayable {
 
     private String[] boardToStringArray(){
         String[] res = Display.emptyStringArray(0, 0);
-<<<<<<< HEAD
-=======
-
->>>>>>> Victor
         //Deck display
         String[] deckDisplay = Display.emptyStringArray(0, 0);
         for(int i=stackCards.size();i>0;i--){
@@ -192,15 +180,9 @@ public class Board implements Displayable {
 
         //Card display
         String[] cardDisplay = Display.emptyStringArray(0, 0);
-<<<<<<< HEAD
         for(int i = 0;i<3;i++){ //-- parcourir les différents niveaux de carte (i)
             String[] tierCardsDisplay = Display.emptyStringArray(8, 0);
             for(int j = 0; j < 4;j++){ //-- parcourir les 4 cartes faces visibles pour un niveau donné (j)
-=======
-        for(int i=0; i<visibleCards.length;i++){ //-- parcourir les différents niveaux de carte (i)
-            String[] tierCardsDisplay = Display.emptyStringArray(8, 0);
-            for(int j=0; j<visibleCards[i].length;j++){ //-- parcourir les 4 cartes faces visibles pour un niveau donné (j)
->>>>>>> Victor
                 tierCardsDisplay = Display.concatStringArray(tierCardsDisplay, visibleCards[i][j]!=null ? visibleCards[i][j].toStringArray() : DevCard.noCardStringArray(), false);
             }
             cardDisplay = Display.concatStringArray(cardDisplay, Display.emptyStringArray(1, 40), true);
@@ -221,7 +203,4 @@ public class Board implements Displayable {
         return boardToStringArray();
     }
     
-    public int getNbResource(Ressource res){
-        return ressources.NbRessource(res);    
-    }
 }

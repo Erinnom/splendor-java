@@ -82,10 +82,6 @@ public class DevCard implements Displayable {
         }
         return cardStr;
     }
-    
-    public Resources getCost() {
-        return coutResources;
-    }
 
     /**
      * Gets the resource cost of the card.
