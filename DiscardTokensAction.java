@@ -13,7 +13,7 @@ public class DiscardTokensAction implements Action
     // variables d'instance - remplacez l'exemple qui suit par le vôtre
     private Board board;
     private Player player;
-    private ArrayList<Ressources> ressource;
+    private ArrayList<Resources> resource;
     /**
      * Constructeur d'objets de classe DiscardTokensAction
      */
@@ -22,7 +22,7 @@ public class DiscardTokensAction implements Action
         // initialisation des variables d'instance
         this.board = board;
         this.player = player;
-        ressource = new ArrayList<Ressources>();
+        resource = new ArrayList<Resources>();
     }
 
     /**
@@ -33,8 +33,8 @@ public class DiscardTokensAction implements Action
      */
     public void process()
     {
-        ressource = player.chooseDiscardingTokens();
-        for (Ressources elem : ressource){
+        resource = player.chooseDiscardingTokens();
+        for (Resources elem : resource){
             player.updateNbResource(elem,-1);
         }
         this.toString();

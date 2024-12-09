@@ -93,7 +93,11 @@ public class Board implements Displayable {
         resources.setNbResource(resource,r);
     }
     
-    public Resource[] getAvaibleResources(Resource resource, int r){
+    public void updateNbResource(Resource resource, int r){
+        resources.updateNbResource(resource,r);
+    }
+    
+    public Resource[] getAvaibleResources(){
         return resources.getAvaibleResources();
     }
     

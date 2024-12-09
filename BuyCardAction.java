@@ -14,7 +14,7 @@ public class BuyCardAction implements Action
     private Player player;
     private Terminal term;
     private Board board;
-    private Devcard card;        
+    private DevCard card;        
 
     /**
      * Constructeur d'objets de classe BuyCardActionù
@@ -49,19 +49,19 @@ public class BuyCardAction implements Action
             y = term.playerChoice(message,possible);
             message = "Quel carte pour ce niveau voulez vous achetez ? 1, 2 ou 3?";
             x = term.playerChoice(message, possible);
-            card = board.getCard(y,x);
+            card = board.getCard(Integer.parseInt(y),Integer.parseInt(x));
             
             if (player.canBuyCard()){
                 
-                Ressource[] ressourceAvailable = card.coutRessources.getAvaibleRessources();
-                for (int i=0; i<ressourceAvailable.length;i++){
-                    cout = card.coutRessources.NbRessource(ressourceAvailable[i]);
-                    player.updateNbResource(ressourceAvailable[i], cout);
+                Resource[] resourceAvailable = card.coutResources.getAvaibleResources();
+                for (int i=0; i<resourceAvailable.length;i++){
+                    cout = card.coutResources.getNbResource(resourceAvailable[i]);
+                    player.updateNbResource(resourceAvailable[i], cout);
                 }
                 
                 player.addPurchaseCard();
                 player.updatePoints(card.points);
-                board.updateCard(card);
+                board.updateCard(Integer.parseInt(y),Integer.parseInt(x));
                 break;
                 
             } else {

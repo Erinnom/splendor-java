@@ -13,7 +13,7 @@ public class PickSameTokensAction implements Action
     private Player player;
     private Terminal term;
     private Board board;
-    private Ressource ressource;
+    private Resource resource;
     /**
      * Constructeur d'objets de classe PickSameTokensAction
      */
@@ -26,13 +26,13 @@ public class PickSameTokensAction implements Action
     }
 
     public void process(){
-        Ressource availableR[] = board.getAvailableResources();
+        Resource availableR[] = board.getAvaibleResources();
         
         while (true){
             String message = "Choisissez une ressource parmi les suivantes :";
             
             
-            for (Ressource elem : availableR){
+            for (Resource elem : availableR){
                 
                 System.out.println(elem);
             }
@@ -42,33 +42,33 @@ public class PickSameTokensAction implements Action
             switch(choice){
                 
                 case "DIAMOND":
-                    ressource = Ressource.DIAMOND;
+                    resource = Resource.DIAMOND;
                     break;
                 case "SAPHIRRE":
-                    ressource = Ressource.SAPPHIRE; 
+                    resource = Resource.SAPPHIRE; 
                     break;
                 case "EMERALD":
-                    ressource = Ressource.EMERALD;
+                    resource = Resource.EMERALD;
                     break;
                 case "ONYX":
-                    ressource = Ressource.ONYX; 
+                    resource = Resource.ONYX; 
                     break;
                 case "RUBY":
-                    ressource = Ressource.RUBY; 
+                    resource = Resource.RUBY; 
                     break;
                 default:
                     break;
             }
             
-            if (canGiveSameTokens(ressource)){
+            if (canGiveSameTokens(resource)){
                 break;
             } else {
                 System.out.println("Vous ne pouvez pas choisir cette ressource car il n'y en a pas assez");
             }
         }
-        board.updateNbResource(ressource, 2);
-        board.setNbResource(ressource, -2);
-        player.updateNbResource(ressource, 2);
+        board.updateNbResource(resource, 2);
+        board.setNbResource(resource, -2);
+        player.updateNbResource(resource, 2);
         this.toString();
         
     }

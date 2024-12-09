@@ -86,7 +86,7 @@ public class Resources {
      * @param resource the type of resource (DIAMOND, SAPPHIRE, EMERALD, RUBY, ONYX)
      * @param r the value to add (positive or negative) to the resource count
      */
-    public void updateResource(Resource resource, int r) {
+    public void updateNbResource(Resource resource, int r) {
         switch (resource) {
             case DIAMOND:
                 if (resources[0] + r >= 0) {

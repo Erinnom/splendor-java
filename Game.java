@@ -32,7 +32,7 @@ public class Game {
     public Game(int nbOfPlayers) throws IllegalArgumentException {
         if (nbOfPlayers >= 2 && nbOfPlayers <= 4 ) {
             
-            board = new Board();
+            board = new Board(nbOfPlayers);
             players = new ArrayList<Player>();
             int id;
             String name;
