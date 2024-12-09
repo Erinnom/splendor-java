@@ -60,7 +60,7 @@ public class PickSameTokensAction implements Action
                     break;
             }
             
-            if (canGiveSameTokens(resource)){
+            if (board.canGiveSameTokens(resource)){
                 break;
             } else {
                 System.out.println("Vous ne pouvez pas choisir cette ressource car il n'y en a pas assez");
@@ -75,6 +75,6 @@ public class PickSameTokensAction implements Action
     
     public String toString() {
         String msg = "";
-        return msg = "Le joueur à choisi de prendre 2 ressources de types" + ressource;
+        return msg = "Le joueur à choisi de prendre 2 ressources de types" + resource;
     }
 }

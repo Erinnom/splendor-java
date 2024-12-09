@@ -51,7 +51,7 @@ public class BuyCardAction implements Action
             x = term.playerChoice(message, possible);
             card = board.getCard(Integer.parseInt(y),Integer.parseInt(x));
             
-            if (player.canBuyCard()){
+            if (player.canBuyCard(card)){
                 
                 Resource[] resourceAvailable = card.coutResources.getAvaibleResources();
                 for (int i=0; i<resourceAvailable.length;i++){
@@ -68,7 +68,7 @@ public class BuyCardAction implements Action
                 System.out.println("Vous ne pouvez pas acheter cette carte, veuillez en choisir une autre");
             }
         }
-        this.toString(card);
+        this.toString();
     }
     
     public String toString(){
