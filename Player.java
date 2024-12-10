@@ -101,7 +101,7 @@ public abstract class Player implements Displayable {
         return total;
     }
     public void updateNbResource(Resource res,int v){
-        resources.updateNbResource(res,v);
+        resources.updateResource(res,v);
     }
     public void updatePoints(int point){
         points += point;
