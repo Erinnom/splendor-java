@@ -108,6 +108,7 @@ public class Game {
     }
 
     private void move(Player player) {
+        // c'est normal que ça ne marche pas 
         ArrayList<String> possible = new ArrayList<String>();
         possible.add("1");
         possible.add("2");
@@ -181,7 +182,7 @@ public class Game {
         }
         System.out.println(
             "félicitation à " +
-            players.get(winner.getName()) +
+            players.get(winner).getName() +
             " pour sa victoire écrasante sur ces adversaires"
         );
     }

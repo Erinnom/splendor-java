@@ -12,16 +12,14 @@ public class PassAction implements Action
 {
     // variables d'instance - remplacez l'exemple qui suit par le vôtre
     private ArrayList<Player> players;
-    private Player player;
 
     /**
      * Constructeur d'objets de classe PassAction
      */
-    public PassAction(ArrayList<Player> players, Player player)
+    public PassAction(ArrayList<Player> players)
     {
         // initialisation des variables d'instance
         this.players = players;
-        this.player = player;
     }
 
     /**
@@ -30,14 +28,14 @@ public class PassAction implements Action
      * @param  y   le paramètre de la méthode
      * @return     la somme de x et de y
      */
-    public void process()
+    public void process(Player player, Board board)
     {
         players.remove(player);
         players.add(player);
-        this.toString();
+        this.toString(player);
     }
     
-    public String toString(){
+    public String toString(Player player){
         return "le joueur suivant a passé son tour :" + player;
     }
 }
