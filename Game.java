@@ -108,13 +108,13 @@ public class Game {
     }
 
     private void move(Player player) {
-        // c'est normal que ça ne marche pas 
-        Action action = player.chooseAction();
+        // c'est normal que ça ne marche pas
+        Action action = player.chooseAction(player, board);
         action.process(player, board);
     }
 
     private void discardToken(Player player) {
-        Action discard =player.chooseDiscardingTokens();
+        Action discard = player.chooseDiscardingTokens();
         discard.process(player, board);
     }
 
@@ -123,8 +123,8 @@ public class Game {
             if (player.getPoints() > 15) {
                 return true;
             }
-            return false;
         }
+        return false;
     }
 
     private void gameOver() {

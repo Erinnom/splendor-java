@@ -94,7 +94,11 @@ public class Board implements Displayable {
     }
     
     public void updateNbResource(Resource resource, int r){
+<<<<<<< HEAD
         resources.updateNbResource(resource,r);
+=======
+        resources.updateResource(resource,r);
+>>>>>>> kewen
     }
     
     public Resource[] getAvaibleResources(){

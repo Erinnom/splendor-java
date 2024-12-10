@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> kewen
 /**
  * Décrivez votre classe DiscardTokensAction ici.
  *
@@ -42,3 +45,7 @@ public class DiscardTokensAction implements Action
         return msg;
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> kewen
