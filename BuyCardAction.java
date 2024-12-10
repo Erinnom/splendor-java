@@ -46,7 +46,7 @@ public class BuyCardAction implements Action
         this.toString(card);
     }
     
-    public String toString(){
+    public String toString(DevCard card){
         return "Le joueur a acheté la carte suivante :" + card;
     }
 }

@@ -30,6 +30,6 @@ public class PickSameTokensAction implements Action
     
     public String toString() {
         String msg = "";
-        return msg = "Le joueur à choisi de prendre 2 ressources de types" + ressource;
+        return msg = "Le joueur à choisi de prendre 2 ressources de types" + resource;
     }
 }
