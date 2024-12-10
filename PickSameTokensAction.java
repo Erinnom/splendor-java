@@ -20,14 +20,14 @@ public class PickSameTokensAction implements Action {
     public void process(Player player, Board board) {
         board.updateNbResource(resource, -2);
         player.updateNbResource(resource, 2);
-        this.toString();
+        System.out.println(this.toString());
     }
 
     public String toString() {
         String msg = "";
         return (
             msg =
-                "Le joueur à choisi de prendre 2 ressources de types" + resource
+                "Le joueur à choisi de prendre 2 ressources de types " + resource
         );
     }
 }

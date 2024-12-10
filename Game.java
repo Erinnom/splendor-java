@@ -38,7 +38,7 @@ public class Game {
     public Game(int nbOfPlayers) throws FileNotFoundException,IllegalArgumentException {
         if (nbOfPlayers >= 2 && nbOfPlayers <= 4) {
             board = new Board(nbOfPlayers);
-            players = new ArrayList<Player>();
+            players = new ArrayList();
             int id;
             String name;
             Terminal term = new Terminal();
@@ -46,16 +46,22 @@ public class Game {
             for (int i = 0; i < nbOfPlayers; i++) {
                 if (i == 0) {
                     id = i;
+                    System.out.println("Comment vous appelez-vous ?");
                     name = term.readString();
                     HumanPlayer player = new HumanPlayer(id, name);
+                    System.out.println("nom et id :" + name + ", et id : " + id );
+                    System.out.println("joueur : "+ player);
                     players.add(player);
                 } else {
                     id = i;
                     name = "DumbRobot" + i;
                     DumbRobotPlayer robot = new DumbRobotPlayer(id, name);
+                    System.out.println("nom et id :" + name + ", et id : " + id );
+                    System.out.println("joueur : "+ robot);
                     players.add(robot);
                 }
             }
+            System.out.println(players);
         } else {
             throw new IllegalArgumentException("nombre de joueurs incorrect");
         }
@@ -96,20 +102,24 @@ public class Game {
 
     public void play() {
         int turn = 0;
+        PassAction pass = new PassAction(players);
         while (!isGameOver()) {
+            System.out.println("Tour de : " + players.get(turn));
             this.move(players.get(turn));
 
             if (players.get(turn).getNbTokens() > 10) {
                 this.discardToken(players.get(turn));
             }
-
+            pass.process(players.get(turn), board);
             turn++;
+            if (turn == this.getNbPlayers()){
+                turn --;
+            }
         }
         this.gameOver();
     }
 
     private void move(Player player) {
-        // c'est normal que ça ne marche pas
         Action action = player.chooseAction(player, board);
         action.process(player, board);
     }

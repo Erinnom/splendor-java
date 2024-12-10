@@ -21,7 +21,7 @@ public abstract class Player implements Displayable, Action {
         //for(Resource res: Resource.values()){
         //    resource.add(res);
         //}
-        Resources resources;
+        resources = new Resources(0, 0, 0, 0, 0);
         //devcard = new DevCard(2,3,2,0,0,0,2,Resource.DIAMOND);
     }
 

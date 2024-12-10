@@ -33,7 +33,7 @@ public class DiscardTokensAction implements Action
             player.updateNbResource(elem,-1);
             board.updateNbResource(elem, 2);
         }
-        this.toString(player);
+        System.out.println(this.toString(player));
     }
     
     public String toString(Player player){
