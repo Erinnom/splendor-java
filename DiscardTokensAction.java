@@ -11,18 +11,15 @@ import java.util.ArrayList;
 public class DiscardTokensAction implements Action
 {
     // variables d'instance - remplacez l'exemple qui suit par le vôtre
-    private Board board;
-    private Player player;
+
     private ArrayList<Resource> resource;
     /**
      * Constructeur d'objets de classe DiscardTokensAction
      */
-    public DiscardTokensAction(Board board, Player player)
+    public DiscardTokensAction(ArrayList<Resource> resource)
     {
         // initialisation des variables d'instance
-        this.board = board;
-        this.player = player;
-        resource = new ArrayList<Resource>();
+        this.resource = resource;
     }
 
     /**
@@ -33,14 +30,14 @@ public class DiscardTokensAction implements Action
      */
     public void process(Player player, Board board)
     {
-        resource = player.chooseDiscardingTokens();
         for (Resource elem : resource){
             player.updateNbResource(elem,-1);
+            board.updateNbResource(elem, 2);
         }
-        this.toString();
+        this.toString(player);
     }
     
-    public String toString(){
+    public String toString(Player player){
         String msg = " Le joueur suivant s'est défaussé de jetons :" + player;
         return msg;
     }

@@ -19,8 +19,7 @@ public class PickSameTokensAction implements Action
 
     public void process(Player player, Board board){
         
-        board.updateNbResource(resource, 2);
-        board.setNbResource(resource, -2);
+        board.updateNbResource(resource, -2);
         player.updateNbResource(resource, 2);
         this.toString();
         

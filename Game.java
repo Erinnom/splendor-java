@@ -109,44 +109,13 @@ public class Game {
 
     private void move(Player player) {
         // c'est normal que ça ne marche pas 
-        ArrayList<String> possible = new ArrayList<String>();
-        possible.add("1");
-        possible.add("2");
-        possible.add("3");
-
-        String msg;
-        String choice;
-        Terminal term = new Terminal();
-
-        msg =
-            "Que voulez-vous faire pour ce tour : \n 1 : prendre 2 jetons de la même ressource \n 2 : prendre 3 jetons de ressources différentes \n 3 : acheter une carte de développement";
-        choice = term.playerChoice(msg, possible);
-
-        switch (choice) {
-            case "1":
-                PickDiffTokensAction pickDiff = new PickDiffTokensAction(
-                    player,
-                    board
-                );
-                pickDiff.process();
-                break;
-            case "2":
-                PickSameTokensAction pickSame = new PickSameTokensAction(
-                    player,
-                    board
-                );
-                pickSame.process();
-                break;
-            case "3":
-                BuyCardAction buyCard = new BuyCardAction(board, player);
-                buyCard.process();
-                break;
-        }
+        Action action = player.chooseAction();
+        action.process(player, board);
     }
 
     private void discardToken(Player player) {
-        DiscardTokensAction discard = new DiscardTokensAction(board, player);
-        discard.process();
+        Action discard =player.chooseDiscardingTokens();
+        discard.process(player, board);
     }
 
     public boolean isGameOver() {
