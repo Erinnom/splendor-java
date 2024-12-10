@@ -9,6 +9,6 @@
 public interface Action
 {
     
-    void process();
+    void process(Player player, Board board);
     String toString();
 }

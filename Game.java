@@ -98,8 +98,8 @@ public class Game {
         this.gameOver();
         }
 
-
-    private void move(Player player){
+    private void move(Player player) {
+        // c'est normal que ça ne marche pas 
         ArrayList<String> possible = new ArrayList<String>();
         possible.add("1");
         possible.add("2");
@@ -165,7 +165,11 @@ public class Game {
                 winner = winner2;
             }
         }
-        System.out.println("félicitation à " + players.get(winner.getName()) + " pour sa victoire écrasante sur ces adversaires");
+        System.out.println(
+            "félicitation à " +
+            players.get(winner).getName() +
+            " pour sa victoire écrasante sur ces adversaires"
+        );
     }
 
 
