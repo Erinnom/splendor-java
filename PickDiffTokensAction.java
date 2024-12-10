@@ -26,7 +26,7 @@ public class PickDiffTokensAction implements Action
     }
 
     public void process(){
-        Resource resource;
+        Resource resource = null;
         Resource temp[] = board.getAvaibleResources();
         ArrayList<Resource> availableR = new ArrayList<Resource>();
         
