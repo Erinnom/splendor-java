@@ -105,11 +105,14 @@ public class Board implements Displayable {
         return visibleCards[tier][colone];
     }
     
-    public void updateCard(int tier,int colone){
-        if (stackCards.get(tier).isEmpty()){
-            visibleCards[tier][colone] = null;
-        }else{
-            visibleCards[tier][colone] = stackCards.get(tier).pop();
+    public void updateCard(DevCard card){
+        int tier_card = card.getTier();
+        int i = 0;
+        while (i < 4 && visibleCards[tier_card][i-1] != card){
+            i++;
+        }
+        if (visibleCards[tier_card][i] == card) {
+            visibleCards[tier_card][i] = stackCards.get(i-1).pop();
         }
     }
     
