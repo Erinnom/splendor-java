@@ -21,10 +21,16 @@ public class DumbRobotPlayer extends Player
     }
 
     
-    public void chooseAction(){
-        
+    public Action chooseAction(Player player,Board board){
+        return null;
     }
-    public void chooseDiscardingTokens(){
-        
+    public Action chooseDiscardingTokens(){
+        return null;
+    }
+    public void process(Player player, Board board){
+        int n;
+    }
+    public String toString(){
+        return "";
     }
 }

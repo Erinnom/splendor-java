@@ -1,23 +1,24 @@
 import java.util.ArrayList;
 //public abstract class Player implements Displayable
-public abstract class Player implements Displayable {
+public abstract class Player implements Displayable,Action {
     private int id;
     private String name;
     private int points;
     private ArrayList<DevCard> purchasedCards;
-    private ArrayList<Resource> resource;
+    //private ArrayList<Resource> resource;
     private Resources resources;
-    private DevCard devcard;
+    //private DevCard devcard;
 
     public Player(int id,String name){
         this.id = id;
         this.name = name;
         points = 0;
         purchasedCards = new ArrayList<DevCard>();
-        resource = new ArrayList<>();
-        for(Resource res: Resource.values()){
-            resource.add(res);
-        }
+        //resource = new ArrayList<>();
+        //for(Resource res: Resource.values()){
+        //    resource.add(res);
+        //}
+        Resources resources;
         //devcard = new DevCard(2,3,2,0,0,0,2,Resource.DIAMOND);
     }
     /* --- Stringers --- */
@@ -66,19 +67,19 @@ public abstract class Player implements Displayable {
         return points;
     }
     public int getNbTokens(){
-        return resource.size();
+        Resource[] resource = {Resource.DIAMOND,Resource.SAPPHIRE,Resource.EMERALD,Resource.RUBY,Resource.ONYX};
+        int nbTockens = 0;
+        for (int i = 0; i < 5; i++){
+            nbTockens += resources.getNbResource(resource[i]);
+        }
+        return nbTockens;
+        
     }
     public int getNbPurchasedCards(){
         return purchasedCards.size();
     }
     public int getNbResource(Resource res){
-        int total = 0;
-        for(int i = 0 ; i < getNbTokens() ; i++){
-            if(resource.get(i) == res){
-                total += 1;
-            }
-        }
-        return total;
+        return resources.getNbResource(res);
     }
     public int[] getAvailableResources(){
         int[] res;
@@ -100,20 +101,7 @@ public abstract class Player implements Displayable {
         return total;
     }
     public void updateNbResource(Resource res,int v){
-        if(v > 0){
-            for(int i = 0 ; i < v ; i++){
-                resource.add(res);
-            }
-        }else{
-            for(int i = 0 ; i < -v ; i++){
-                for(int j = 0 ; j < getNbTokens() ; j++){
-                    if(resource.get(j) == res){
-                        resource.remove(j);
-                        break;
-                    }
-                }
-            }
-        }
+        resources.updateResource(res,v);
     }
     public void updatePoints(int point){
         points += point;
@@ -139,6 +127,6 @@ public abstract class Player implements Displayable {
         }
         return true;
     }
-    public abstract void chooseAction();
-    public abstract void chooseDiscardingTokens();
+    public abstract Action chooseAction(Player player,Board board);
+    public abstract Action chooseDiscardingTokens();
     }
