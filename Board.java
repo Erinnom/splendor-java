@@ -94,7 +94,7 @@ public class Board implements Displayable {
     }
     
     public void updateNbResource(Resource resource, int r){
-        resources.updateResource(resource,r);
+        resources.updateNbResource(resource,r);
     }
     
     public Resource[] getAvaibleResources(){
@@ -211,3 +211,4 @@ public class Board implements Displayable {
     }
     
 }
+

@@ -41,4 +41,3 @@ public class DiscardTokensAction implements Action
         return msg;
     }
 }
-

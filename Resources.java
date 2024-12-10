@@ -1,9 +1,8 @@
-
 /**
- * The Resources class is used to manage a collection of resources, 
- * including DIAMOND, SAPPHIRE, EMERALD, RUBY, and ONYX. 
+ * The Resources class is used to manage a collection of resources,
+ * including DIAMOND, SAPPHIRE, EMERALD, RUBY, and ONYX.
  * Each resource is represented as an integer count.
- * 
+ *
  * @author Erinnom
  */
 public class Resources {
@@ -20,7 +19,13 @@ public class Resources {
      * @param countRUBY the number of RUBY resources
      * @param countONYX the number of ONYX resources
      */
-    public Resources(int countDIAMOND, int countSAPPHIRE, int countEMERALD, int countRUBY, int countONYX) {
+    public Resources(
+        int countDIAMOND,
+        int countSAPPHIRE,
+        int countEMERALD,
+        int countRUBY,
+        int countONYX
+    ) {
         resources = new int[5];
         resources[0] = countDIAMOND;
         resources[1] = countSAPPHIRE;
@@ -86,7 +91,7 @@ public class Resources {
      * @param resource the type of resource (DIAMOND, SAPPHIRE, EMERALD, RUBY, ONYX)
      * @param r the value to add (positive or negative) to the resource count
      */
-    public void updateResource(Resource resource, int r) {
+    public void updateNbResource(Resource resource, int r) {
         switch (resource) {
             case DIAMOND:
                 if (resources[0] + r >= 0) {
@@ -150,7 +155,7 @@ public class Resources {
                         avaible_resources[indice] = Resource.RUBY;
                         break;
                 }
-                indice+=1;
+                indice += 1;
             }
         }
         return avaible_resources;

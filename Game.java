@@ -6,6 +6,7 @@
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileNotFoundException;
 
 public class Game {
 
@@ -26,7 +27,7 @@ public class Game {
     private Board board;
     private List<Player> players;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalArgumentException,FileNotFoundException {
         //-- à modifier pour permettre plusieurs scénarios de jeu
         display.outBoard.println("Bienvenue sur Splendor !");
         Game game = new Game(2);
@@ -34,7 +35,7 @@ public class Game {
         display.close();
     }
 
-    public Game(int nbOfPlayers) throws IllegalArgumentException {
+    public Game(int nbOfPlayers) throws FileNotFoundException,IllegalArgumentException {
         if (nbOfPlayers >= 2 && nbOfPlayers <= 4) {
             board = new Board(nbOfPlayers);
             players = new ArrayList<Player>();
@@ -108,13 +109,13 @@ public class Game {
     }
 
     private void move(Player player) {
-        // c'est normal que ça ne marche pas 
-        Action action = player.chooseAction(player,board);
+        // c'est normal que ça ne marche pas
+        Action action = player.chooseAction(player, board);
         action.process(player, board);
     }
 
     private void discardToken(Player player) {
-        Action discard =player.chooseDiscardingTokens();
+        Action discard = player.chooseDiscardingTokens();
         discard.process(player, board);
     }
 

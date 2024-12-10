@@ -66,7 +66,7 @@ public class HumanPlayer extends Player
         
         msg ="Que voulez-vous faire pour ce tour : \n 1 : prendre 2 jetons de la même ressource \n 2 : prendre 3 jetons de ressources différentes \n 3 : acheter une carte de développement";
         choice = term.playerChoice(msg , possible);
-        System.out.println(choice);
+        
         if(choice.equals("1")){
             PickSameTokensAction pick = new PickSameTokensAction(choixResource());
             return pick;
@@ -76,6 +76,25 @@ public class HumanPlayer extends Player
             return pick;
         }
         if(choice.equals("3")){
+            ArrayList<String> possible2 = new ArrayList<String>();
+            possible2.add("1");
+            possible2.add("2");
+            possible2.add("3");
+            possible2.add("4");
+            
+            String msg2;  
+            String msg3; 
+            String choice2;
+            String choice3;
+            Terminal term2 = new Terminal();
+            
+            msg2 ="Choisir une carte : \n tier :";
+            choice2 = term.playerChoice(msg2 , possible2);
+            
+            msg3 ="colone :";
+            choice3 = term.playerChoice(msg3 , possible2);
+            
+            board.getCard(Integer.parseInt(choice2),Integer.parseInt(choice3));
             
         }
         return null;
