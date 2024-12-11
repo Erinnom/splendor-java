@@ -102,13 +102,13 @@ public class Board implements Displayable {
     }
     
     public DevCard getCard(int tier,int colone){
-        return visibleCards[tier][colone];
+        return visibleCards[tier-1][colone-1];
     }
     
     public void updateCard(DevCard card){
         int tier_card = card.getTier();
         int i = 0;
-        while (i < 4 && visibleCards[tier_card][i-1] != card){
+        while (i < 4 && visibleCards[tier_card-1][i-1] != card){
             i++;
         }
         if (visibleCards[tier_card][i] == card) {
