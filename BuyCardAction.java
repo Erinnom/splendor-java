@@ -43,11 +43,12 @@ public class BuyCardAction implements Action {
             );
         }
 
-        this.toString(card);
+        System.out.println(this.toString(card, player));
     }
 
-    public String toString(DevCard card) {
-        return "Le joueur a acheté la carte suivante :" + card;
+    public String toString(DevCard card, Player player) {
+        String msg;
+        return (msg = "Le joueur " + player.getName() +" a acheté la carte suivante : " + card);
     }
 }
 
