@@ -49,19 +49,14 @@ public class Game {
                     System.out.println("Comment vous appelez-vous ?");
                     name = term.readString();
                     HumanPlayer player = new HumanPlayer(id, name);
-                    System.out.println("nom et id :" + name + ", et id : " + id );
-                    System.out.println("joueur : "+ player);
                     players.add(player);
                 } else {
                     id = i;
                     name = "DumbRobot" + i;
                     DumbRobotPlayer robot = new DumbRobotPlayer(id, name);
-                    System.out.println("nom et id :" + name + ", et id : " + id );
-                    System.out.println("joueur : "+ robot);
                     players.add(robot);
                 }
             }
-            System.out.println(players);
         } else {
             throw new IllegalArgumentException("nombre de joueurs incorrect");
         }
@@ -104,7 +99,8 @@ public class Game {
         int turn = 0;
         PassAction pass = new PassAction(players);
         while (!isGameOver()) {
-            System.out.println("Tour de : " + players.get(turn));
+            this.display(this.getNbPlayers());
+            System.out.println("Tour de : " + players.get(turn).getName());
             this.move(players.get(turn));
 
             if (players.get(turn).getNbTokens() > 10) {

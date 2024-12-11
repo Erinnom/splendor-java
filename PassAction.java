@@ -36,6 +36,6 @@ public class PassAction implements Action
     }
     
     public String toString(Player player){
-        return ("le joueur suivant a passé son tour : " + player ) ;
+        return ("le joueur suivant a passé son tour : " + player.getName() ) ;
     }
 }

@@ -29,14 +29,14 @@ public class PickDiffTokensAction implements Action {
         board.updateNbResource(resource3, 1);
         player.updateNbResource(resource3, 1);
         
-        System.out.println(this.toString());
+        System.out.println(this.toString(player));
     }
 
-    public String toString() {
+    public String toString(Player player) {
         String msg = "";
         return (
             msg =
-                "Le joueur à choisi de prendre 3 ressources différentes de types " +
+                "Le joueur" + player.getName() +" à choisi de prendre 3 ressources différentes de types " +
                 resource1 +
                 ", " +
                 resource2 +
