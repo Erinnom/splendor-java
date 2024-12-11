@@ -58,7 +58,7 @@ public class Game {
                 }
             }
         } else {
-            throw new IllegalArgumentException("nombre de joueurs incorrect");
+            throw new IllegalArgumentException();
         }
     }
 
