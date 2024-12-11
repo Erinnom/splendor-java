@@ -30,7 +30,7 @@ public class HumanPlayer extends Player
         String choice;
         Terminal term = new Terminal();
         
-        System.out.println("Resources disponibles : \n 1 : DIAMOND \n 2 : SAPPHYRE \n 3 : EMERALD \n 4 : ONYX \n 5 : RUBY");
+        System.out.println("Resources disponibles : \n 1 : DIAMOND \n 2 : SAPPHYRE \n 3 : EMERALD \n 4 : RUBY \n 5 : ONYX");
         
         msg ="Choix de la resource :";
         
@@ -46,9 +46,9 @@ public class HumanPlayer extends Player
             return Resource.EMERALD;
         }
         if(choice.equals("4")){
-            return Resource.ONYX;
-        }else{
             return Resource.RUBY;
+        }else{
+            return Resource.ONYX;
         }
         
         
@@ -59,12 +59,13 @@ public class HumanPlayer extends Player
         possible.add("1");
         possible.add("2");
         possible.add("3");
+        possible.add("4");
         
         String msg;   
         String choice;
         Terminal term = new Terminal();
         
-        msg ="Que voulez-vous faire pour ce tour : \n 1 : prendre 2 jetons de la même ressource \n 2 : prendre 3 jetons de ressources différentes \n 3 : acheter une carte de développement";
+        msg ="Que voulez-vous faire pour ce tour : \n 1 : prendre 2 jetons de la même ressource \n 2 : prendre 3 jetons de ressources différentes \n 3 : acheter une carte de développement \n 4 : ne rien faire";
         choice = term.playerChoice(msg , possible);
         
         if(choice.equals("1")){
@@ -94,13 +95,60 @@ public class HumanPlayer extends Player
             msg3 ="colone :";
             choice3 = term.playerChoice(msg3 , possible2);
             
-            board.getCard(Integer.parseInt(choice2),Integer.parseInt(choice3));
+            BuyCardAction buy = new BuyCardAction(board.getCard(Integer.parseInt(choice2),Integer.parseInt(choice3)));
+            
+            return buy;
             
         }
         return null;
     }
     public Action chooseDiscardingTokens(){
-       return null; 
+        
+        if(super.getNbTokens() > 10){
+            ArrayList<String> possible = new ArrayList<String>();
+            possible.add("1");
+            possible.add("2");
+            possible.add("3");
+            possible.add("4");
+            possible.add("5");
+            
+            String msg;   
+            String choice;
+            Terminal term = new Terminal();
+            int nbTokentrop;
+            
+            
+            while(super.getNbTokens() > 10){
+                nbTokentrop = super.getNbTokens() - 10;
+                msg = "Vous avez "+ nbTokentrop + " resource en trop. \nResources disponibles : \n 1 : DIAMOND \n 2 : SAPPHYRE \n 3 : EMERALD \n 4 : ONYX \n 5 : RUBY";
+                choice = term.playerChoice(msg , possible);
+                if(choice.equals("1")){
+                    if(super.getNbResource(Resource.DIAMOND) > 0){
+                        super.updateNbResource(Resource.DIAMOND, -1);
+                    }
+                }
+                if(choice.equals("2")){
+                    if(super.getNbResource(Resource.SAPPHIRE) > 0){
+                        super.updateNbResource(Resource.SAPPHIRE, -1);
+                    }
+                }
+                if(choice.equals("3")){
+                    if(super.getNbResource(Resource.EMERALD) > 0){
+                        super.updateNbResource(Resource.EMERALD, -1);
+                    }
+                }
+                if(choice.equals("4")){
+                    if(super.getNbResource(Resource.RUBY) > 0){
+                        super.updateNbResource(Resource.RUBY, -1);
+                    }
+                }else{
+                    if(super.getNbResource(Resource.ONYX) > 0){
+                        super.updateNbResource(Resource.ONYX, -1);
+                    }
+                }
+            }
+        }
+        return null; 
     }
     public void process(Player player, Board board){
         int n;
