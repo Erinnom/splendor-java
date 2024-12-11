@@ -154,6 +154,6 @@ public class HumanPlayer extends Player
         int n;
     }
     public String toString(){
-        return "";
+        return super.toString();
     }
 }
