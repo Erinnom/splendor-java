@@ -30,15 +30,26 @@ public class DumbRobotPlayer extends Player {
         res[2] = Resource.EMERALD;
         res[3] = Resource.RUBY;
         res[4] = Resource.ONYX;
-        
-        
         if(tour == 0){
-            BuyCardAction buy = new BuyCardAction(board.getCard(1,1));
+            int maxCard = board.getCard(1,1).getPoints();
+            int maxI = 1;
+            int maxJ = 1;
+            for(int i = 1 ; i < 4 ; i++){
+                for(int j = 1 ; j < 5 ; j++){ 
+                    if((board.getCard(i,j).getPoints() > maxCard)&&(super.canBuyCard(board.getCard(i,j)))){
+                       maxI = i;
+                       maxJ = j;           
+                    }                   
+                }
+            }
+            if(!super.canBuyCard(board.getCard(maxI,maxJ))){
+                return null;
+            }
+            BuyCardAction buy = new BuyCardAction(board.getCard(maxI,maxJ));
             tour += 1;
             return buy;
         }
-        if(tour == 1){
-            
+        if(tour == 1){  
             PickSameTokensAction pick = new PickSameTokensAction(res[r.nextInt(4)]);
             tour += 1;
             return pick;           
@@ -53,7 +64,6 @@ public class DumbRobotPlayer extends Player {
             return null;
         }       
     }
-
     public Action chooseDiscardingTokens() {
         if(super.getNbTokens() > 10){
             Random r = new Random();
