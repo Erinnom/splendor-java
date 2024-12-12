@@ -11,15 +11,13 @@ import java.util.ArrayList;
 public class PassAction implements Action
 {
     // variables d'instance - remplacez l'exemple qui suit par le vôtre
-    private List<Player> players;
 
     /**
      * Constructeur d'objets de classe PassAction
      */
-    public PassAction(List<Player> players)
+    public PassAction()
     {
-        // initialisation des variables d'instance
-        this.players = players;
+ 
     }
 
     /**
@@ -30,8 +28,6 @@ public class PassAction implements Action
      */
     public void process(Player player, Board board)
     {
-        players.remove(player);
-        players.add(player);
         System.out.println(this.toString(player));
     }
     

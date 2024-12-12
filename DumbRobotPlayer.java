@@ -43,9 +43,14 @@ public class DumbRobotPlayer extends Player {
                 return buy;
         }else{
             int cpt = 0;
+            int cpt1 = 0;
             for (Resource elem : board.getAvaibleResources()){
                 if (board.getNbResource(elem) < 4){
                     cpt++;
+                }
+                if (board.getNbResource(elem) <= 0){
+                    cpt1++;
+                    res.remove(elem);
                 }
             }
             if (cpt != 5){
@@ -53,12 +58,12 @@ public class DumbRobotPlayer extends Player {
             if (board.getNbResource(res0) < 4){
                 while (board.getNbResource(res0) <4){
                 res0 = res.get(r.nextInt(4));
+                }
             }
-            }
-            
             PickSameTokensAction pick = new PickSameTokensAction(res0);
-            return pick;
-            }else {
+            return pick;            
+            
+            }else if(cpt1<=2) {
                 Resource res1 = res.get(r.nextInt(4));
                 res.remove(res1);
                 Resource res2 = res.get(r.nextInt(3));
@@ -67,9 +72,11 @@ public class DumbRobotPlayer extends Player {
                 res.remove(res3);
                 PickDiffTokensAction pick = new PickDiffTokensAction(res1, res2, res3);
                 return pick; 
+            } else {
+            Action pass = new PassAction();
+            return pass;
             }
         }
-        
     }
     public Action chooseDiscardingTokens() {
         if(super.getNbTokens() > 10){
