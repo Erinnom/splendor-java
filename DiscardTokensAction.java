@@ -31,13 +31,17 @@ public class DiscardTokensAction implements Action
     {
         for (Resource elem : resource){
             player.updateNbResource(elem,-1);
-            board.updateNbResource(elem, 2);
+            board.updateNbResource(elem, 1);
         }
         System.out.println(this.toString(player));
     }
     
     public String toString(Player player){
-        String msg = " Le joueur suivant s'est défaussé de jetons :" + player;
-        return msg;
+        String msg = " Le joueur "+ player.getName()+ " suivant s'est défaussé de jetons de ressources :";
+        for (Resource elem : resource){
+            msg += elem+ "\n";
+        }
+        
+        return msg+"\n";
     }
 }

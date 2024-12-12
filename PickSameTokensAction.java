@@ -27,7 +27,7 @@ public class PickSameTokensAction implements Action {
         String msg = "";
         return (
             msg =
-                "Le joueur " + player.getName() + " à choisi de prendre 2 ressources de types " + resource
+                "Le joueur " + player.getName() + " à choisi de prendre 2 ressources de types " + resource + "\n"
         );
     }
 }

@@ -39,7 +39,7 @@ public class BuyCardAction implements Action {
             board.updateCard(card);
         } else {
             System.out.println(
-                "Vous ne pouvez pas acheter cette carte, veuillez en choisir une autre"
+                "Vous ne pouvez pas acheter cette carte, veuillez en choisir une autre\n"
             );
         }
 
@@ -48,7 +48,7 @@ public class BuyCardAction implements Action {
 
     public String toString(DevCard card, Player player) {
         String msg;
-        return (msg = "Le joueur " + player.getName() +" a acheté la carte suivante : " + card);
+        return (msg = "Le joueur " + player.getName() +" a acheté la carte suivante : " + card + "\n");
     }
 }
 

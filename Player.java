@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 //public abstract class Player implements Displayable
 public abstract class Player implements Displayable, Action {
-
     private int id;
     private String name;
     private int points;
