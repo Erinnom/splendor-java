@@ -1,5 +1,4 @@
 #BlueJ package file
-
 dependency1.from=PickDiffTokensAction
 dependency1.to=Resource
 dependency1.type=UsesDependency
