@@ -44,6 +44,7 @@ public class DumbRobotPlayer extends Player {
         }else{
             int cpt = 0;
             int cpt1 = 0;
+            ArrayList<Resource> available = new ArrayList<Resource>();
             for (Resource elem : board.getAvaibleResources()){
                 if (board.getNbResource(elem) < 4){
                     cpt++;
@@ -52,12 +53,16 @@ public class DumbRobotPlayer extends Player {
                     cpt1++;
                     res.remove(elem);
                 }
+                if (board.getNbResource(elem) >=4){
+                    available.add(elem);
+                }
             }
-            if (cpt != 5){
-            Resource res0 = res.get(r.nextInt(4));
+            if (cpt+cpt1 != 5){
+            Resource res0 = available.get(r.nextInt(available.size()));
             if (board.getNbResource(res0) < 4){
                 while (board.getNbResource(res0) <4){
-                res0 = res.get(r.nextInt(4));
+                System.out.println("je bloque ici");
+                res0 = available.get(r.nextInt(available.size()-1));
                 }
             }
             PickSameTokensAction pick = new PickSameTokensAction(res0);

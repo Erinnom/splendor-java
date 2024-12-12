@@ -156,15 +156,25 @@ public class HumanPlayer extends Player
                 String msg3; 
                 String choice2;
                 String choice3;
+                DevCard card;
                 Terminal term2 = new Terminal();
-                
+                while(true){
                 msg2 ="Choisir une carte : \n tier :";
                 choice2 = term.playerChoice(msg2 , possible2);
                 
                 msg3 ="colone :";
                 choice3 = term.playerChoice(msg3 , possible2);
                 System.out.println(choice2 + "  " + choice3);
-                BuyCardAction buy = new BuyCardAction(board.getCard(Integer.parseInt(choice2),Integer.parseInt(choice3)));
+                
+                card = board.getCard(Integer.parseInt(choice2),Integer.parseInt(choice3));
+                if (player.canBuyCard(card)) {
+                    break;
+                    } else {
+                        System.out.println("Vous n'avez pas les ressources suffisantes pour acheter la carte suivante : " + card + "\nVeuillez en choisir une autre");
+                    }
+                
+                }
+                BuyCardAction buy = new BuyCardAction(card);
                 
                 return buy;
                 
