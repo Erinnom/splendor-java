@@ -1,127 +1,235 @@
+import java.util.ArrayList;
 /**
- * Décrivez votre classe DumbRobotPlayer ici.
+ * Décrivez votre classe HumanPlayer ici.
  *
  * @author (votre nom)
  * @version (un numéro de version ou une date)
  */
-import java.util.Random;
-import java.util.ArrayList;
-public class DumbRobotPlayer extends Player {
-
-
+public class HumanPlayer extends Player
+{
     /**
-     * Constructeur d'objets de classe DumbRobotPlayer
+     * Constructeur d'objets de classe HumanPlayer
      */
-    public DumbRobotPlayer(int id, String name) {
+    public HumanPlayer(int id,String name)
+    {
         // initialisation des variables d'instance
-        super(id, name);
+        super(id,name);
+    }
+    public Resource choixResource(){
+        ArrayList<String> possible = new ArrayList<String>();
+        possible.add("1");
+        possible.add("2");
+        possible.add("3");
+        possible.add("4");
+        possible.add("5");
+        
+        String msg;   
+        String choice;
+        Terminal term = new Terminal();
+        
+        System.out.println("Resources disponibles : \n 1 : DIAMOND \n 2 : SAPPHYRE \n 3 : EMERALD \n 4 : RUBY \n 5 : ONYX");
+        
+        msg ="Choix de la resource :";
+        
+        choice = term.playerChoice(msg , possible);
+        
+        if(choice.equals("1")){
+            return Resource.DIAMOND;
+        }
+        if(choice.equals("2")){
+            return Resource.SAPPHIRE;
+        }
+        if(choice.equals("3")){
+            return Resource.EMERALD;
+        }
+        if(choice.equals("4")){
+            return Resource.RUBY;
+        }else{
+            return Resource.ONYX;
+        }
+        
+        
     }
 
-    public Action chooseAction(Player player, Board board) {
-        Random r = new Random();
-        int n = r.nextInt(4);
-        ArrayList<Resource> res = new ArrayList<Resource>();
-        res.add(Resource.DIAMOND);
-        res.add(Resource.SAPPHIRE);
-        res.add(Resource.EMERALD);
-        res.add(Resource.RUBY);
-        res.add(Resource.ONYX);
+    public Action chooseAction(Player player,Board board){
+        ArrayList<String> possible = new ArrayList<String>();
+        Resource[] res = board.getAvaibleResources();
+        int cpt = 0;
+        boolean notEnough = false;
+        possible.add("1");
+        possible.add("2");
+        possible.add("3");
+        possible.add("4");
         
-        int maxCard = board.getCard(1,1).getPoints();
-        int maxI = 1;
-        int maxJ = 1;
-        for(int i = 1 ; i < 4 ; i++){
-            for(int j = 1 ; j < 5 ; j++){ 
-                if((board.getCard(i,j).getPoints() > maxCard)&&(super.canBuyCard(board.getCard(i,j)))){
-                   maxI = i;
-                   maxJ = j;           
-                }                   
-            }
-        }
-        if(super.canBuyCard(board.getCard(maxI,maxJ))){
-                BuyCardAction buy = new BuyCardAction(board.getCard(maxI,maxJ));
-                return buy;
-        }else{
-            int cpt = 0;
-            int cpt1 = 0;
-            for (Resource elem : board.getAvaibleResources()){
-                if (board.getNbResource(elem) < 4){
-                    cpt++;
+        String msg;   
+        String choice;
+        Terminal term = new Terminal();
+        
+        msg ="Que voulez-vous faire pour ce tour : \n 1 : prendre 2 jetons de la même ressource \n 2 : prendre 3 jetons de ressources différentes \n 3 : acheter une carte de développement \n 4 : ne rien faire \n";
+        while (true){
+            choice = term.playerChoice(msg , possible);
+            if (choice.equals("1")){
+                for (Resource elem : res){
+                    if (board.getNbResource(elem) < 4){
+                        cpt++;
+                        }
+                    }
+                if ( cpt == 4){
+                    System.out.println(" Il ne reste plus assez de jetons, veuillez choisir une autre option entre la 2, la 3 ou la 4\n");
+                    possible.remove("1");
+                    choice = "";
+                    }               
                 }
-                if (board.getNbResource(elem) <= 0){
-                    cpt1++;
-                    res.remove(elem);
+            if(choice.equals("1")){
+                Resource res0;
+                while (true) {
+                res0 = choixResource();
+                switch(res0){
+                    case DIAMOND :
+                        if (board.getNbResource(Resource.DIAMOND)<4){
+                            notEnough = true;
+                        }
+                        break;
+                    case SAPPHIRE :
+                        if (board.getNbResource(Resource.SAPPHIRE)<4){
+                            notEnough = true;
+                        }
+                        break;
+                    case EMERALD :
+                        if (board.getNbResource(Resource.EMERALD)<4){
+                            notEnough = true;
+                        }
+                        break;
+                    case RUBY :
+                        if (board.getNbResource(Resource.RUBY)<4){
+                            notEnough = true;
+                        }
+                        break;
+                    case ONYX :
+                        if (board.getNbResource(Resource.ONYX)<4){
+                            notEnough = true;
+                        }
+                        break;
                 }
-            }
-            if (cpt != 5){
-            Resource res0 = res.get(r.nextInt(4));
-            if (board.getNbResource(res0) < 4){
-                while (board.getNbResource(res0) <4){
-                res0 = res.get(r.nextInt(4));
+                if (!notEnough){
+                    break;
+                }else{
+                    System.out.println("Il n'y a plus assez de cette ressource, veuillez en choisir une autre");
+                    notEnough = false;
+                    }
                 }
+                PickSameTokensAction pick = new PickSameTokensAction(res0);
+                return pick;
             }
-            PickSameTokensAction pick = new PickSameTokensAction(res0);
-            return pick;            
-            
-            }else if(cpt1<=2) {
-                Resource res1 = res.get(r.nextInt(4));
-                res.remove(res1);
-                Resource res2 = res.get(r.nextInt(3));
-                res.remove(res2);
-                Resource res3 = res.get(r.nextInt(2));
-                res.remove(res3);
+            if(choice.equals("2")){
+                Resource res1;
+                Resource res2;
+                Resource res3;
+                res1 = choixResource();
+                while (true) {
+                    res2 = choixResource();
+                    if (res1.equals(res2)){
+                        System.out.println("Vous avez déjà sélectionné cette ressource, veuillez en choisir une autre");
+                    }else {
+                        break;
+                    }
+                }
+                while (true){
+                    res3 = choixResource();
+                    if (res1.equals(res3) || res2.equals(res3)){
+                        System.out.println("Vous avez déjà sélectionné cette ressource, veuillez en choisir une autre");
+                    }else {
+                        break;
+                    }
+                }
                 PickDiffTokensAction pick = new PickDiffTokensAction(res1, res2, res3);
-                return pick; 
-            } else {
-            Action pass = new PassAction();
-            return pass;
+                return pick;
             }
-        }
+            if(choice.equals("3")){
+                ArrayList<String> possible2 = new ArrayList<String>();
+                possible2.add("1");
+                possible2.add("2");
+                possible2.add("3");
+                possible2.add("4");
+                
+                String msg2;  
+                String msg3; 
+                String choice2;
+                String choice3;
+                Terminal term2 = new Terminal();
+                
+                msg2 ="Choisir une carte : \n tier :";
+                choice2 = term.playerChoice(msg2 , possible2);
+                
+                msg3 ="colone :";
+                choice3 = term.playerChoice(msg3 , possible2);
+                System.out.println(choice2 + "  " + choice3);
+                BuyCardAction buy = new BuyCardAction(board.getCard(Integer.parseInt(choice2),Integer.parseInt(choice3)));
+                
+                return buy;
+                
+            }
+        }       
     }
-    public Action chooseDiscardingTokens() {
+    public Action chooseDiscardingTokens(){
+        
         if(super.getNbTokens() > 10){
             ArrayList<Resource> discard = new ArrayList<Resource>();
-            Random r = new Random();
-            int n;
-            while(super.getNbTokens() > 10){           
-                n = r.nextInt(4);                               
-                if(n == 0){
+            ArrayList<String> possible = new ArrayList<String>();
+            possible.add("1");
+            possible.add("2");
+            possible.add("3");
+            possible.add("4");
+            possible.add("5");
+            
+            String msg;   
+            String choice;
+            Terminal term = new Terminal();
+            int nbTokentrop;
+            nbTokentrop = super.getNbTokens() - 10;
+            
+            while(nbTokentrop > 0){
+                
+                msg = "Vous avez "+ nbTokentrop + " resource en trop. \nResources disponibles : \n 1 : DIAMOND \n 2 : SAPPHYRE \n 3 : EMERALD \n 4 : ONYX \n 5 : RUBY";
+                choice = term.playerChoice(msg , possible);
+                if(choice.equals("1")){
                     if(super.getNbResource(Resource.DIAMOND) > 0){
                         discard.add(Resource.DIAMOND);
+                        nbTokentrop--;
                     }
                 }
-                if(n == 1){
+                if(choice.equals("2")){
                     if(super.getNbResource(Resource.SAPPHIRE) > 0){
                         discard.add(Resource.SAPPHIRE);
+                        nbTokentrop--;
                     }
                 }
-                if(n == 2){
+                if(choice.equals("3")){
                     if(super.getNbResource(Resource.EMERALD) > 0){
                         discard.add(Resource.EMERALD);
+                        nbTokentrop--;
                     }
                 }
-                if(n == 3){
+                if(choice.equals("4")){
                     if(super.getNbResource(Resource.RUBY) > 0){
                         discard.add(Resource.RUBY);
+                        nbTokentrop--;
                     }
-                }
-                if(n == 4){
+                }else{
                     if(super.getNbResource(Resource.ONYX) > 0){
                         discard.add(Resource.ONYX);
+                        nbTokentrop--;
                     }
                 }
             }
-            return new DiscardTokensAction(discard);
+            return new DiscardTokensAction(discard); 
         }
         return null;
     }
-
-    public void process(Player player, Board board) {
+    public void process(Player player, Board board){
         int n;
     }
-
-    public String toString() {
+    public String toString(){
         return super.toString();
     }
-
 }
