@@ -20,21 +20,43 @@ public class Game {
      */
     private static final int ROWS_BOARD = 36, ROWS_CONSOLE = 8, COLS = 82;
     public static final Display display = new Display(
-        ROWS_BOARD,
-        ROWS_CONSOLE,
-        COLS
-    );
+            ROWS_BOARD,
+            ROWS_CONSOLE,
+            COLS
+        );
 
     private Board board;
     private List<Player> players;
     private Scanner scan = new Scanner(Game.display.in);
-    
+
     public static void main(String[] args) throws IllegalArgumentException,FileNotFoundException {
-        //-- à modifier pour permettre plusieurs scénarios de jeu
         display.outBoard.println("Bienvenue sur Splendor !");
-        Game game = new Game(2);
-        game.play();
-        display.close();
+
+        int nbJoueur = 2;
+        boolean nbValide=false; 
+        String entree;
+        Game.display.out.println("entrez le nombre de joueur (entre 2 et 4) : ");
+
+        try( Scanner scan = new Scanner(Game.display.in) ){
+            while (nbValide != true)  {
+                entree = scan.next();
+                try {
+                    nbJoueur = Integer.parseInt(entree);
+                    if( nbJoueur>1 && nbJoueur<5){
+                        nbValide = true;
+                    }else{
+                        Game.display.out.println(nbJoueur + " n'est pas un nombre de joueur valide");
+                    }
+
+                } catch (NumberFormatException e) {
+                    Game.display.out.println("Il faut saisir un nombre.");
+                }
+
+            }
+            Game game = new Game(nbJoueur);
+            game.play();
+            display.close();
+        }
     }
 
     public Game(int nbOfPlayers) throws FileNotFoundException,IllegalArgumentException {
@@ -87,10 +109,10 @@ public class Game {
             );
         }
         String[] mainDisplay = Display.concatStringArray(
-            boardDisplay,
-            playerDisplay,
-            false
-        );
+                boardDisplay,
+                playerDisplay,
+                false
+            );
 
         display.outBoard.clean();
         display.outBoard.println(String.join("\n", mainDisplay));
@@ -106,12 +128,12 @@ public class Game {
             if (players.get(turn).getNbTokens() > 10) {
                 this.discardToken(players.get(turn));
             }
-            
+
             turn++;
             if (turn> this.getNbPlayers()-1){
                 turn = 0;
             }
-            
+
         }
         this.gameOver();
     }
@@ -143,7 +165,7 @@ public class Game {
             if (players.get(i).getPoints() > players.get(winner).getPoints()) {
                 winner = i;
             } else if (
-                players.get(i).getPoints() == players.get(winner).getPoints()
+            players.get(i).getPoints() == players.get(winner).getPoints()
             ) {
                 draw = true;
                 winner2 = i;
@@ -151,8 +173,8 @@ public class Game {
         }
         if (draw) {
             if (
-                players.get(winner).getNbPurchasedCards() <
-                players.get(winner2).getNbPurchasedCards()
+            players.get(winner).getNbPurchasedCards() <
+            players.get(winner2).getNbPurchasedCards()
             ) {
                 winner = winner2;
             }
@@ -162,5 +184,7 @@ public class Game {
             players.get(winner).getName() +
             " pour sa victoire écrasante sur ces adversaires"
         );
+        System.out.println("Entrer n'importe quel message pour fermer la fenêtre");
+        scan.next();
     }
 }

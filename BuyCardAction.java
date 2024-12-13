@@ -31,7 +31,7 @@ public class BuyCardAction implements Action {
             Resource[] resourceAvailable = card.coutResources.getAvaibleResources();
             for (int i = 0; i < resourceAvailable.length; i++) {
                 cout = card.coutResources.getNbResource(resourceAvailable[i]);
-                player.updateNbResource(resourceAvailable[i], - (cout - player.getResFromCards(resourceAvailable[i])));
+                player.updateNbResource(resourceAvailable[i], - Math.min(0,(cout - player.getResFromCards(resourceAvailable[i]))));
                 board.updateNbResource(resourceAvailable[i], cout);
             }
             player.addPurchasedCard(card);
