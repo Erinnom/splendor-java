@@ -12,7 +12,6 @@ public enum Resource {
     ONYX,
     RUBY;
 
-
     /**
      * Provides a human-readable string representation of the resource, 
      * including its name and a corresponding Unicode symbol.

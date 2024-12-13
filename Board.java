@@ -102,6 +102,7 @@ public class Board implements Displayable {
     }
     
     public DevCard getCard(int tier,int colone){
+        //return visibleCards[3-(tier)][colone-1];
         return visibleCards[tier-1][colone-1];
     }
     
