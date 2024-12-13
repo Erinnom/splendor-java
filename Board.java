@@ -142,8 +142,10 @@ public class Board implements Displayable {
 
             i++;
         }
-        if (visibleCards[tier_card-1][i] == card) {
-            visibleCards[tier_card-1][i] = stackCards.get(i).pop();
+        if ( i < 3) {
+            if (visibleCards[tier_card-1][i] == card) {
+                visibleCards[tier_card-1][i] = stackCards.get(i).pop();
+            }
         }
     }
     
@@ -153,7 +155,7 @@ public class Board implements Displayable {
      * @return DevCard
      */
     public DevCard drawCard(int tier){
-        return  stackCards.get(tier).pop();
+        return  stackCards.get(tier-1).pop();
     }
     
     /**
