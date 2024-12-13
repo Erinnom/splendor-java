@@ -108,11 +108,11 @@ public class Board implements Displayable {
     public void updateCard(DevCard card){
         int tier_card = card.getTier();
         int i = 0;
-        while (i < 4 && visibleCards[tier_card-1][i-1] != card){
+        while (i < 4 && visibleCards[tier_card-1][i] != card){
             i++;
         }
-        if (visibleCards[tier_card][i] == card) {
-            visibleCards[tier_card][i] = stackCards.get(i-1).pop();
+        if (visibleCards[tier_card-1][i] == card) {
+            visibleCards[tier_card-1][i] = stackCards.get(i).pop();
         }
     }
     
