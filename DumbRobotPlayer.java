@@ -19,6 +19,7 @@ public class DumbRobotPlayer extends Player {
 
     public Action chooseAction(Player player, Board board) {
         Random r = new Random();
+        boolean pay = false;
         int n = r.nextInt(4);
         ArrayList<Resource> res = new ArrayList<Resource>();
         res.add(Resource.DIAMOND);
@@ -27,21 +28,17 @@ public class DumbRobotPlayer extends Player {
         res.add(Resource.RUBY);
         res.add(Resource.ONYX);
         
-        int maxCard = board.getCard(1,1).getPoints();
-        int maxI = 1;
-        int maxJ = 1;
-        for(int i = 1 ; i < 4 ; i++){
-            for(int j = 1 ; j < 5 ; j++){ 
-                if((board.getCard(i,j).getPoints() > maxCard)&&(super.canBuyCard(board.getCard(i,j)))){
-                   maxI = i;
-                   maxJ = j;           
+        for(int i = 3 ; i > 1 ; i--){
+            for(int j = 4 ; j > 1 ; j--){ 
+                if(super.canBuyCard(board.getCard(i,j))){
+                   BuyCardAction buy = new BuyCardAction(board.getCard(i,j));
+                   return buy;
                 }                   
             }
         }
-        if(super.canBuyCard(board.getCard(maxI,maxJ))){
-                BuyCardAction buy = new BuyCardAction(board.getCard(maxI,maxJ));
-                return buy;
-        }else{
+        
+                
+        if (pay==false){
             int cpt = 0;
             int cpt1 = 0;
             ArrayList<Resource> available = new ArrayList<Resource>();
@@ -57,16 +54,16 @@ public class DumbRobotPlayer extends Player {
                     available.add(elem);
                 }
             }
-            if (cpt+cpt1 != 5){
-            Resource res0 = available.get(r.nextInt(available.size()));
-            if (board.getNbResource(res0) < 4){
-                while (board.getNbResource(res0) <4){
-                System.out.println("je bloque ici");
-                res0 = available.get(r.nextInt(available.size()-1));
+            if ((cpt+cpt1 != 5)&&(available.size() > 0)){
+                
+                Resource res0 = available.get(r.nextInt(available.size()));
+                if (board.getNbResource(res0) < 4){
+                    while (board.getNbResource(res0) <4){
+                        res0 = available.get(r.nextInt(available.size()-1));
+                    }
                 }
-            }
-            PickSameTokensAction pick = new PickSameTokensAction(res0);
-            return pick;            
+                PickSameTokensAction pick = new PickSameTokensAction(res0);
+                return pick;            
             
             }else if(cpt1<=2) {
                 Resource res1 = res.get(r.nextInt(4));
@@ -82,36 +79,49 @@ public class DumbRobotPlayer extends Player {
             return pass;
             }
         }
+        Action pass = new PassAction();
+        return pass;
     }
     public Action chooseDiscardingTokens() {
         if(super.getNbTokens() > 10){
             ArrayList<Resource> discard = new ArrayList<Resource>();
             Random r = new Random();
             int n;
-            while(super.getNbTokens() > 10){           
-                n = r.nextInt(4);                               
+            int nbres = super.getNbTokens();
+            while(nbres > 10){           
+                n = r.nextInt(5);                               
                 if(n == 0){
+                    Game.display.out.println("choix  diamond  " +super.getNbTokens());
                     if(super.getNbResource(Resource.DIAMOND) > 0){
+                        nbres--;
                         discard.add(Resource.DIAMOND);
                     }
                 }
                 if(n == 1){
+                    Game.display.out.println("choix  sapphire  " +super.getNbTokens());
                     if(super.getNbResource(Resource.SAPPHIRE) > 0){
+                        nbres--;
                         discard.add(Resource.SAPPHIRE);
                     }
                 }
                 if(n == 2){
+                    Game.display.out.println("choix  emerald  " +super.getNbTokens());
                     if(super.getNbResource(Resource.EMERALD) > 0){
+                        nbres--;
                         discard.add(Resource.EMERALD);
                     }
                 }
                 if(n == 3){
+                    Game.display.out.println("choix  ruby  " +super.getNbTokens());
                     if(super.getNbResource(Resource.RUBY) > 0){
+                        nbres--;
                         discard.add(Resource.RUBY);
                     }
                 }
                 if(n == 4){
+                    Game.display.out.println("choix  onyx  " +super.getNbTokens());
                     if(super.getNbResource(Resource.ONYX) > 0){
+                        nbres--;
                         discard.add(Resource.ONYX);
                     }
                 }

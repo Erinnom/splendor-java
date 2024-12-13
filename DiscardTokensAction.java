@@ -30,10 +30,10 @@ public class DiscardTokensAction implements Action
     public void process(Player player, Board board)
     {
         for (Resource elem : resource){
-            player.updateNbResource(elem,-1);
+            player.updateNbResource(elem, -1);
             board.updateNbResource(elem, 1);
         }
-        System.out.println(this.toString(player));
+        Game.display.out.println(this.toString(player));
     }
     
     public String toString(Player player){
