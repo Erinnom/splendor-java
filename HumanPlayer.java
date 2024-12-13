@@ -196,6 +196,12 @@ public class HumanPlayer extends Player
             possible.add("4");
             possible.add("5");
             
+            int nbDiamond = super.getNbResource(Resource.DIAMOND);
+            int nbSapphire = super.getNbResource(Resource.SAPPHIRE);
+            int nbEmerald = super.getNbResource(Resource.EMERALD);
+            int nbRuby = super.getNbResource(Resource.RUBY);
+            int nbOnyx = super.getNbResource(Resource.ONYX);
+            
             String msg;   
             String choice;
             Terminal term = new Terminal();
@@ -204,34 +210,44 @@ public class HumanPlayer extends Player
             
             while(nbTokentrop > 0){
                 
-                msg = "Vous avez "+ nbTokentrop + " resource en trop. \nResources disponibles : \n 1 : DIAMOND \n 2 : SAPPHYRE \n 3 : EMERALD \n 4 : ONYX \n 5 : RUBY";
+                msg = "Vous avez "+ nbTokentrop + " resource en trop. \nResources disponibles : \n 1 : DIAMOND \n 2 : SAPPHYRE \n 3 : EMERALD \n 4 : RUBY \n 5 : ONYX";
                 choice = term.playerChoice(msg , possible);
                 if(choice.equals("1")){
-                    if(super.getNbResource(Resource.DIAMOND) > 0){
+                    System.out.println("diamond "+super.getNbResource(Resource.DIAMOND));
+                    if(nbDiamond > 0){
                         discard.add(Resource.DIAMOND);
+                        nbDiamond--;
                         nbTokentrop--;
                     }
                 }
                 if(choice.equals("2")){
-                    if(super.getNbResource(Resource.SAPPHIRE) > 0){
+                    System.out.println("sapphire "+super.getNbResource(Resource.SAPPHIRE));
+                    if(nbSapphire > 0){
                         discard.add(Resource.SAPPHIRE);
+                        nbSapphire--;
                         nbTokentrop--;
                     }
                 }
                 if(choice.equals("3")){
-                    if(super.getNbResource(Resource.EMERALD) > 0){
+                    System.out.println("emerald "+super.getNbResource(Resource.EMERALD));
+                    if(nbEmerald > 0){
                         discard.add(Resource.EMERALD);
+                        nbEmerald--;
                         nbTokentrop--;
                     }
                 }
                 if(choice.equals("4")){
-                    if(super.getNbResource(Resource.RUBY) > 0){
+                    System.out.println("ruby "+super.getNbResource(Resource.RUBY));
+                    if(nbRuby > 0){
                         discard.add(Resource.RUBY);
+                        nbRuby--;
                         nbTokentrop--;
                     }
                 }else{
-                    if(super.getNbResource(Resource.ONYX) > 0){
+                    System.out.println("onyx "+super.getNbResource(Resource.ONYX));
+                    if(nbOnyx > 0){
                         discard.add(Resource.ONYX);
+                        nbOnyx--;
                         nbTokentrop--;
                     }
                 }
