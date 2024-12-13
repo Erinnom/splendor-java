@@ -84,28 +84,57 @@ public class Board implements Displayable {
     }
     
     // Méthodes
-    
+    /**
+     * Get the amount of a resource
+     * @param Resource resource
+     * @return int number of resource
+     */
     public int getNbResource(Resource resource){
         return resources.getNbResource(resource);
     }
     
+    /**
+     * set a  specific the amount of a resource
+     * @param Resource resource
+     * @return void
+     */
     public void setNbResource(Resource resource, int r){
         resources.setNbResource(resource,r);
     }
     
+    /**
+     * Add or remove a specific amount of resource
+     * @param Resource resource
+     * @return void
+     */
     public void updateNbResource(Resource resource, int r){
         resources.updateNbResource(resource,r);
     }
     
+    
+    /**
+     * Get the list of avaible resources types 
+     * @return list of resources
+     */
     public Resource[] getAvaibleResources(){
         return resources.getAvaibleResources();
     }
     
+    /**
+     * Get a visible card
+     * @param int tier & int colone
+     * @return DevCard
+     */
     public DevCard getCard(int tier,int colone){
         //return visibleCards[3-(tier)][colone-1];
         return visibleCards[tier-1][colone-1];
     }
     
+    /**
+     * Replace a DevCard by another
+     * @param DevCard card
+     * @return void
+     */
     public void updateCard(DevCard card){
         int tier_card = card.getTier();
         int i = 0;
@@ -117,20 +146,35 @@ public class Board implements Displayable {
         }
     }
     
+    /**
+     * Get a card from a stack following the tier categorie
+     * @param int tier
+     * @return DevCard
+     */
     public DevCard drawCard(int tier){
         return  stackCards.get(tier).pop();
     }
     
+    /**
+     * Check if a player can take two identical resources
+     * @param Resource resource
+     * @return boolean
+     */
     public boolean canGiveSameTokens(Resource resource){
-        if (resources.getNbResource(resource) < 4){
+        if (resources.getNbResource(resource) <= 4){
             return false;
         } 
         return true;
     }
     
+    /**
+     * Check if a player can take three differents resources
+     * @param list of resources
+     * @return boolean
+     */
     public boolean canGiveDiffTokens(Resource[] resources){
         for (int i = 0; i < resources.length; i++){
-            if (this.resources.getNbResource(resources[i]) >= 4){
+            if (this.resources.getNbResource(resources[i]) >= 1){
                 return true;
             }
         }
