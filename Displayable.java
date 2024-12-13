@@ -1,3 +1,3 @@
 public interface Displayable {
-    public String[] toStringArray();
+    String[] toStringArray();   
 }

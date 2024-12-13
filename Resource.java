@@ -1,3 +1,10 @@
+/**
+ * Enumeration of resources representing different types of gemstones:
+ * DIAMOND, SAPPHIRE, EMERALD, ONYX, and RUBY.
+ * Each resource has a textual representation and a symbolic representation.
+ * 
+ * @author Erinnom
+ */
 public enum Resource {
     DIAMOND,
     SAPPHIRE,
@@ -5,8 +12,14 @@ public enum Resource {
     ONYX,
     RUBY;
 
-    public String toString(){
-        switch(this){
+    /**
+     * Provides a human-readable string representation of the resource, 
+     * including its name and a corresponding Unicode symbol.
+     *
+     * @return a string representation of the resource
+     */
+    public String toString() {
+        switch (this) {
             case EMERALD:
                 return "EMERAUDE \u2663"; // EMERAUDE ♣
             case DIAMOND:
@@ -22,8 +35,14 @@ public enum Resource {
         }
     }
 
-    public String toSymbol(){
-        switch(this){
+    /**
+     * Provides a symbolic representation of the resource,
+     * combining a Unicode character and a single-letter abbreviation.
+     *
+     * @return a string representing the symbol of the resource
+     */
+    public String toSymbol() {
+        switch (this) {
             case EMERALD:
                 return "\u2663E"; // ♣E
             case DIAMOND:
