@@ -145,7 +145,12 @@ public class Board implements Displayable {
             i++;
         }
         if (visibleCards[tier_card-1][i] == card) {
-            visibleCards[tier_card-1][i] = stackCards.get(tier_card-1).pop();
+            if(stackCards.get(tier_card-1).size() !=0){
+                visibleCards[tier_card-1][i] = stackCards.get(tier_card-1).pop();
+            }
+            else{
+                visibleCards[tier_card-1][i] = null;                
+            }
         }
     }
     

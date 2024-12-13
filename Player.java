@@ -56,12 +56,12 @@ public abstract class Player implements Displayable, Action {
                 3 + (Resource.values().length - 1 - res.ordinal())
             );
             strPlayer[3 + (Resource.values().length - 1 - res.ordinal())] =
-                res.toSymbol() +
-                " (" +
-                resources.getNbResource(res) +
-                ") [" +
-                getResFromCards(res) +
-                "]";
+            res.toSymbol() +
+            " (" +
+            resources.getNbResource(res) +
+            ") [" +
+            getResFromCards(res) +
+            "]";
         }
 
         return strPlayer;
@@ -78,12 +78,12 @@ public abstract class Player implements Displayable, Action {
 
     public int getNbTokens() {
         Resource[] resource = {
-            Resource.DIAMOND,
-            Resource.SAPPHIRE,
-            Resource.EMERALD,
-            Resource.RUBY,
-            Resource.ONYX,
-        };
+                Resource.DIAMOND,
+                Resource.SAPPHIRE,
+                Resource.EMERALD,
+                Resource.RUBY,
+                Resource.ONYX,
+            };
         int nbTockens = 0;
         for (int i = 0; i < 5; i++) {
             nbTockens += resources.getNbResource(resource[i]);
@@ -135,37 +135,43 @@ public abstract class Player implements Displayable, Action {
     }
 
     public boolean canBuyCard(DevCard dev) {
-        if (
+        if (dev != null){
+            if (
             getNbResource(Resource.DIAMOND) + getResFromCards(Resource.DIAMOND) <
             dev.getCost().getNbResource(Resource.DIAMOND)
-        ) {
-            return false;
-        }
-        if (
+            ) {
+                return false;
+            }
+            if (
             getNbResource(Resource.SAPPHIRE) + getResFromCards(Resource.SAPPHIRE) <
             dev.getCost().getNbResource(Resource.SAPPHIRE)
-        ) {
-            return false;
-        }
-        if (
+            ) {
+                return false;
+            }
+            if (
             getNbResource(Resource.EMERALD) + getResFromCards(Resource.EMERALD) <
             dev.getCost().getNbResource(Resource.EMERALD)
-        ) {
-            return false;
-        }
-        if (
+            ) {
+                return false;
+            }
+            if (
             getNbResource(Resource.ONYX) + getResFromCards(Resource.ONYX) <
             dev.getCost().getNbResource(Resource.ONYX)
-        ) {
-            return false;
-        }
-        if (
+            ) {
+                return false;
+            }
+            if (
             getNbResource(Resource.RUBY) + getResFromCards(Resource.RUBY) <
             dev.getCost().getNbResource(Resource.RUBY)
-        ) {
+            ) {
+                return false;
+            }
+            return true;
+        }
+        else{
             return false;
         }
-        return true;
+
     }
 
     public abstract Action chooseAction(Player player, Board board);
