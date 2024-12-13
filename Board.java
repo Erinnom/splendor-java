@@ -229,7 +229,7 @@ public class Board implements Displayable {
         String[] res = Display.emptyStringArray(0, 0);
         //Deck display
         String[] deckDisplay = Display.emptyStringArray(0, 0);
-        for(int i=stackCards.size();i>0;i--){
+        for(int i=1;i<stackCards.size()+1;i++){
             deckDisplay = Display.concatStringArray(deckDisplay, deckToStringArray(i), true);
         }
 
