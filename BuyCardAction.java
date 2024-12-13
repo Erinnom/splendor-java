@@ -37,18 +37,19 @@ public class BuyCardAction implements Action {
             player.addPurchasedCard(card);
             player.updatePoints(card.points);
             board.updateCard(card);
+                    System.out.println(this.toString(card, player));
         } else {
             System.out.println(
-                "Vous ne pouvez pas acheter cette carte, veuillez en choisir une autre"
+                "Vous ne pouvez pas acheter cette carte, veuillez en choisir une autre\n"
             );
         }
 
-        System.out.println(this.toString(card, player));
+
     }
 
     public String toString(DevCard card, Player player) {
         String msg;
-        return (msg = "Le joueur " + player.getName() +" a acheté la carte suivante : " + card);
+        return (msg = "Le joueur " + player.getName() +" a acheté la carte suivante : " + card + "\n");
     }
 }
 

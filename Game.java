@@ -97,20 +97,20 @@ public class Game {
 
     public void play() {
         int turn = 0;
-        PassAction pass = new PassAction(players);
         while (!isGameOver()) {
             this.display(this.getNbPlayers());
-            System.out.println("Tour de : " + players.get(turn).getName());
+            System.out.println("Tour de : " + players.get(turn).getName()+ "\n");
             this.move(players.get(turn));
 
             if (players.get(turn).getNbTokens() > 10) {
                 this.discardToken(players.get(turn));
             }
-            pass.process(players.get(turn), board);
+            
             turn++;
-            if (turn == this.getNbPlayers()){
-                turn --;
+            if (turn> this.getNbPlayers()-1){
+                turn = 0;
             }
+            
         }
         this.gameOver();
     }

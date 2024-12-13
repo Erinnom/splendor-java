@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 //public abstract class Player implements Displayable
 public abstract class Player implements Displayable, Action {
-
     private int id;
     private String name;
     private int points;
@@ -107,8 +106,8 @@ public abstract class Player implements Displayable, Action {
         res[0] = getNbResource(Resource.DIAMOND);
         res[1] = getNbResource(Resource.SAPPHIRE);
         res[2] = getNbResource(Resource.EMERALD);
-        res[3] = getNbResource(Resource.ONYX);
-        res[4] = getNbResource(Resource.RUBY);
+        res[3] = getNbResource(Resource.RUBY);
+        res[4] = getNbResource(Resource.ONYX);
 
         return res;
     }

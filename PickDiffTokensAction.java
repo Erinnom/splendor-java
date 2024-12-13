@@ -22,11 +22,11 @@ public class PickDiffTokensAction implements Action {
     }
 
     public void process(Player player, Board board) {
-        board.updateNbResource(resource1, 1);
+        board.updateNbResource(resource1, -1);
         player.updateNbResource(resource1, 1);
-        board.updateNbResource(resource2, 1);
+        board.updateNbResource(resource2, -1);
         player.updateNbResource(resource2, 1);
-        board.updateNbResource(resource3, 1);
+        board.updateNbResource(resource3, -1);
         player.updateNbResource(resource3, 1);
         
         System.out.println(this.toString(player));
@@ -41,7 +41,7 @@ public class PickDiffTokensAction implements Action {
                 ", " +
                 resource2 +
                 " et " +
-                resource3
+                resource3 + "\n"
         );
     }
 }
