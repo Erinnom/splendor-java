@@ -28,18 +28,18 @@ public class BuyCardAction implements Action {
     public void process(Player player, Board board) {
         int cout;
         if (player.canBuyCard(card)) {
-            Resource[] resourceAvailable =
-                card.coutResources.getAvaibleResources();
+            Resource[] resourceAvailable = card.coutResources.getAvaibleResources();
             for (int i = 0; i < resourceAvailable.length; i++) {
                 cout = card.coutResources.getNbResource(resourceAvailable[i]);
-                player.updateNbResource(resourceAvailable[i], cout);
+                player.updateNbResource(resourceAvailable[i], - (cout - player.getResFromCards(resourceAvailable[i])));
+                board.updateNbResource(resourceAvailable[i], cout);
             }
             player.addPurchasedCard(card);
             player.updatePoints(card.points);
             board.updateCard(card);
-                    System.out.println(this.toString(card, player));
+            Game.display.out.println(this.toString(card, player));
         } else {
-            System.out.println(
+            Game.display.out.println(
                 "Vous ne pouvez pas acheter cette carte, veuillez en choisir une autre\n"
             );
         }

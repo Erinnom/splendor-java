@@ -7,6 +7,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class Game {
 
@@ -26,7 +27,8 @@ public class Game {
 
     private Board board;
     private List<Player> players;
-
+    private Scanner scan = new Scanner(Game.display.in);
+    
     public static void main(String[] args) throws IllegalArgumentException,FileNotFoundException {
         //-- à modifier pour permettre plusieurs scénarios de jeu
         display.outBoard.println("Bienvenue sur Splendor !");
@@ -41,13 +43,12 @@ public class Game {
             players = new ArrayList();
             int id;
             String name;
-            Terminal term = new Terminal();
 
             for (int i = 0; i < nbOfPlayers; i++) {
                 if (i == 0) {
                     id = i;
-                    System.out.println("Comment vous appelez-vous ?");
-                    name = term.readString();
+                    Game.display.out.println("Comment vous appelez-vous ?");
+                    name = scan.next();
                     HumanPlayer player = new HumanPlayer(id, name);
                     players.add(player);
                 } else {
@@ -99,7 +100,7 @@ public class Game {
         int turn = 0;
         while (!isGameOver()) {
             this.display(this.getNbPlayers());
-            System.out.println("Tour de : " + players.get(turn).getName()+ "\n");
+            Game.display.out.println("Tour de : " + players.get(turn).getName()+ "\n");
             this.move(players.get(turn));
 
             if (players.get(turn).getNbTokens() > 10) {

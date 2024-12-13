@@ -29,7 +29,7 @@ public class PickDiffTokensAction implements Action {
         board.updateNbResource(resource3, -1);
         player.updateNbResource(resource3, 1);
         
-        System.out.println(this.toString(player));
+        Game.display.out.println(this.toString(player));
     }
 
     public String toString(Player player) {

@@ -115,7 +115,9 @@ public abstract class Player implements Displayable, Action {
     public int getResFromCards(Resource res) {
         int total = 0;
         for (int i = 0; i < getNbPurchasedCards(); i++) {
-            total += purchasedCards.get(i).getCost().getNbResource(res);
+            if (purchasedCards.get(i).getResourceType().equals(res)){
+                total++;
+            }
         }
         return total;
     }
@@ -134,31 +136,31 @@ public abstract class Player implements Displayable, Action {
 
     public boolean canBuyCard(DevCard dev) {
         if (
-            getNbResource(Resource.DIAMOND) <
+            getNbResource(Resource.DIAMOND) + getResFromCards(Resource.DIAMOND) <
             dev.getCost().getNbResource(Resource.DIAMOND)
         ) {
             return false;
         }
         if (
-            getNbResource(Resource.SAPPHIRE) <
+            getNbResource(Resource.SAPPHIRE) + getResFromCards(Resource.SAPPHIRE) <
             dev.getCost().getNbResource(Resource.SAPPHIRE)
         ) {
             return false;
         }
         if (
-            getNbResource(Resource.EMERALD) <
+            getNbResource(Resource.EMERALD) + getResFromCards(Resource.EMERALD) <
             dev.getCost().getNbResource(Resource.EMERALD)
         ) {
             return false;
         }
         if (
-            getNbResource(Resource.ONYX) <
+            getNbResource(Resource.ONYX) + getResFromCards(Resource.ONYX) <
             dev.getCost().getNbResource(Resource.ONYX)
         ) {
             return false;
         }
         if (
-            getNbResource(Resource.RUBY) <
+            getNbResource(Resource.RUBY) + getResFromCards(Resource.RUBY) <
             dev.getCost().getNbResource(Resource.RUBY)
         ) {
             return false;

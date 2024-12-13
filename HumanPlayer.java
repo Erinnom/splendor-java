@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 /**
  * Décrivez votre classe HumanPlayer ici.
  *
@@ -7,6 +8,7 @@ import java.util.ArrayList;
  */
 public class HumanPlayer extends Player
 {
+    private Scanner scan = new Scanner(Game.display.in);
     /**
      * Constructeur d'objets de classe HumanPlayer
      */
@@ -25,13 +27,12 @@ public class HumanPlayer extends Player
         
         String msg;   
         String choice;
-        Terminal term = new Terminal();
         
-        System.out.println("Resources disponibles : \n 1 : DIAMOND \n 2 : SAPPHYRE \n 3 : EMERALD \n 4 : RUBY \n 5 : ONYX");
+        Game.display.out.println("Resources disponibles : \n 1 : DIAMOND \n 2 : SAPPHYRE \n 3 : EMERALD \n 4 : RUBY \n 5 : ONYX");
         
         msg ="Choix de la resource :";
         
-        choice = term.playerChoice(msg , possible);
+        choice = playerChoice(msg , possible);
         
         if(choice.equals("1")){
             return Resource.DIAMOND;
@@ -63,11 +64,10 @@ public class HumanPlayer extends Player
         
         String msg;   
         String choice;
-        Terminal term = new Terminal();
         
         msg ="Que voulez-vous faire pour ce tour : \n 1 : prendre 2 jetons de la même ressource \n 2 : prendre 3 jetons de ressources différentes \n 3 : acheter une carte de développement \n 4 : ne rien faire \n";
         while (true){
-            choice = term.playerChoice(msg , possible);
+            choice = playerChoice(msg , possible);
             if (choice.equals("1")){
                 for (Resource elem : res){
                     if (board.getNbResource(elem) < 4){
@@ -75,7 +75,7 @@ public class HumanPlayer extends Player
                         }
                     }
                 if ( cpt == 4){
-                    System.out.println(" Il ne reste plus assez de jetons, veuillez choisir une autre option entre la 2, la 3 ou la 4\n");
+                    Game.display.out.println(" Il ne reste plus assez de jetons, veuillez choisir une autre option entre la 2, la 3 ou la 4\n");
                     possible.remove("1");
                     choice = "";
                     }               
@@ -114,7 +114,7 @@ public class HumanPlayer extends Player
                 if (!notEnough){
                     break;
                 }else{
-                    System.out.println("Il n'y a plus assez de cette ressource, veuillez en choisir une autre");
+                    Game.display.out.println("Il n'y a plus assez de cette ressource, veuillez en choisir une autre");
                     notEnough = false;
                     }
                 }
@@ -129,7 +129,7 @@ public class HumanPlayer extends Player
                 while (true) {
                     res2 = choixResource();
                     if (res1.equals(res2)){
-                        System.out.println("Vous avez déjà sélectionné cette ressource, veuillez en choisir une autre");
+                        Game.display.out.println("Vous avez déjà sélectionné cette ressource, veuillez en choisir une autre");
                     }else {
                         break;
                     }
@@ -137,7 +137,7 @@ public class HumanPlayer extends Player
                 while (true){
                     res3 = choixResource();
                     if (res1.equals(res3) || res2.equals(res3)){
-                        System.out.println("Vous avez déjà sélectionné cette ressource, veuillez en choisir une autre");
+                        Game.display.out.println("Vous avez déjà sélectionné cette ressource, veuillez en choisir une autre");
                     }else {
                         break;
                     }
@@ -157,20 +157,19 @@ public class HumanPlayer extends Player
                 String choice2;
                 String choice3;
                 DevCard card;
-                Terminal term2 = new Terminal();
                 while(true){
                 msg2 ="Choisir une carte : \n tier :";
-                choice2 = term.playerChoice(msg2 , possible2);
+                choice2 = playerChoice(msg2 , possible2);
                 
                 msg3 ="colone :";
-                choice3 = term.playerChoice(msg3 , possible2);
-                System.out.println(choice2 + "  " + choice3);
+                choice3 = playerChoice(msg3 , possible2);
+                Game.display.out.println(choice2 + "  " + choice3);
                 
                 card = board.getCard(Integer.parseInt(choice2),Integer.parseInt(choice3));
                 if (player.canBuyCard(card)) {
                     break;
                     } else {
-                        System.out.println("Vous n'avez pas les ressources suffisantes pour acheter la carte suivante : " + card + "\nVeuillez en choisir une autre");
+                        Game.display.out.println("Vous n'avez pas les ressources suffisantes pour acheter la carte suivante : " + card + "\nVeuillez en choisir une autre");
                     }
                 
                 }
@@ -204,50 +203,44 @@ public class HumanPlayer extends Player
             
             String msg;   
             String choice;
-            Terminal term = new Terminal();
             int nbTokentrop;
             nbTokentrop = super.getNbTokens() - 10;
             
             while(nbTokentrop > 0){
                 
                 msg = "Vous avez "+ nbTokentrop + " resource en trop. \nResources disponibles : \n 1 : DIAMOND \n 2 : SAPPHYRE \n 3 : EMERALD \n 4 : RUBY \n 5 : ONYX";
-                choice = term.playerChoice(msg , possible);
+                choice = playerChoice(msg , possible);
                 if(choice.equals("1")){
-                    System.out.println("diamond "+super.getNbResource(Resource.DIAMOND));
+                    Game.display.out.println("diamond "+super.getNbResource(Resource.DIAMOND));
                     if(nbDiamond > 0){
                         discard.add(Resource.DIAMOND);
-                        nbDiamond--;
                         nbTokentrop--;
                     }
                 }
                 if(choice.equals("2")){
-                    System.out.println("sapphire "+super.getNbResource(Resource.SAPPHIRE));
+                    Game.display.out.println("sapphire "+super.getNbResource(Resource.SAPPHIRE));
                     if(nbSapphire > 0){
                         discard.add(Resource.SAPPHIRE);
-                        nbSapphire--;
                         nbTokentrop--;
                     }
                 }
                 if(choice.equals("3")){
-                    System.out.println("emerald "+super.getNbResource(Resource.EMERALD));
+                    Game.display.out.println("emerald "+super.getNbResource(Resource.EMERALD));
                     if(nbEmerald > 0){
                         discard.add(Resource.EMERALD);
-                        nbEmerald--;
                         nbTokentrop--;
                     }
                 }
                 if(choice.equals("4")){
-                    System.out.println("ruby "+super.getNbResource(Resource.RUBY));
+                    Game.display.out.println("ruby "+super.getNbResource(Resource.RUBY));
                     if(nbRuby > 0){
                         discard.add(Resource.RUBY);
-                        nbRuby--;
                         nbTokentrop--;
                     }
                 }else{
-                    System.out.println("onyx "+super.getNbResource(Resource.ONYX));
+                    Game.display.out.println("onyx "+super.getNbResource(Resource.ONYX));
                     if(nbOnyx > 0){
                         discard.add(Resource.ONYX);
-                        nbOnyx--;
                         nbTokentrop--;
                     }
                 }
@@ -262,4 +255,18 @@ public class HumanPlayer extends Player
     public String toString(){
         return super.toString();
     }
+    
+      public String playerChoice(String message, ArrayList expectedResult){
+      Game.display.out.println(message);
+      String choice = scan.next();
+      while (true){
+          if ( expectedResult.contains(choice) == false ){
+              Game.display.out.println("Erreur de saisie, veuillez réessayer");
+              choice = scan.next();
+          } else {
+              break;
+          }
+      }
+      return choice;
+  }
 }

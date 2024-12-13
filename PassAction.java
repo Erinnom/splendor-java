@@ -28,7 +28,7 @@ public class PassAction implements Action
      */
     public void process(Player player, Board board)
     {
-        System.out.println(this.toString(player));
+        Game.display.out.println(this.toString(player));
     }
     
     public String toString(Player player){
