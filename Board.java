@@ -62,6 +62,9 @@ public class Board implements Displayable {
         }
         
         //Mettre les tas de cartes dans stacksCards
+        Collections.shuffle(tier1);
+        Collections.shuffle(tier2);
+        Collections.shuffle(tier3);
         stackCards.add(tier1);
         stackCards.add(tier2);
         stackCards.add(tier3);
