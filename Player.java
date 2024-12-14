@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 //public abstract class Player implements Displayable
 public abstract class Player implements Displayable, Action {
+
     private int id;
     private String name;
     private int points;
@@ -11,6 +12,11 @@ public abstract class Player implements Displayable, Action {
 
     //private DevCard devcard;
 
+    /**
+     * Constructeur d'objets de classe Player
+     * @param id l'identifiant du joueur
+     * @param name le nom du joueur
+     */
     public Player(int id, String name) {
         this.id = id;
         this.name = name;
@@ -56,34 +62,45 @@ public abstract class Player implements Displayable, Action {
                 3 + (Resource.values().length - 1 - res.ordinal())
             );
             strPlayer[3 + (Resource.values().length - 1 - res.ordinal())] =
-            res.toSymbol() +
-            " (" +
-            resources.getNbResource(res) +
-            ") [" +
-            getResFromCards(res) +
-            "]";
+                res.toSymbol() +
+                " (" +
+                resources.getNbResource(res) +
+                ") [" +
+                getResFromCards(res) +
+                "]";
         }
 
         return strPlayer;
     }
 
-    //accesseurs
+    /**
+     * Gets the name of the player.
+     * @return the name of the player
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets the points of the player.
+     * @return the number of points the player has
+     */
     public int getPoints() {
         return points;
     }
 
+    /**
+     * Gets the number of tokens the player has.
+     * @return the number of tokens the player has
+     */
     public int getNbTokens() {
         Resource[] resource = {
-                Resource.DIAMOND,
-                Resource.SAPPHIRE,
-                Resource.EMERALD,
-                Resource.RUBY,
-                Resource.ONYX,
-            };
+            Resource.DIAMOND,
+            Resource.SAPPHIRE,
+            Resource.EMERALD,
+            Resource.RUBY,
+            Resource.ONYX,
+        };
         int nbTockens = 0;
         for (int i = 0; i < 5; i++) {
             nbTockens += resources.getNbResource(resource[i]);
@@ -91,14 +108,28 @@ public abstract class Player implements Displayable, Action {
         return nbTockens;
     }
 
+    /**
+     * Gets the number of purchased cards the player has.
+     * @return the number of purchased cards the player has
+     */
     public int getNbPurchasedCards() {
         return purchasedCards.size();
     }
 
+    /**
+     * Gets the number of a specific resource the player has.
+     * @param res the resource to check
+     * @return the number of the resource the player has
+     */
     public int getNbResource(Resource res) {
         return resources.getNbResource(res);
     }
 
+    /**
+     * Gets the number of a specific resource the player has.
+     * @param res the resource to check
+     * @return the number of the resource the player has
+     */
     public int[] getAvailableResources() {
         int[] res;
         res = new int[5];
@@ -112,66 +143,92 @@ public abstract class Player implements Displayable, Action {
         return res;
     }
 
+    /**
+     * Gets the number of a specific resource the player has from purchased cards.
+     * @param res the resource to check
+     * @return the number of the resource the player has from purchased cards
+     */
     public int getResFromCards(Resource res) {
         int total = 0;
         for (int i = 0; i < getNbPurchasedCards(); i++) {
-            if (purchasedCards.get(i).getResourceType().equals(res)){
+            if (purchasedCards.get(i).getResourceType().equals(res)) {
                 total++;
             }
         }
         return total;
     }
 
+    /**
+     * update the number of a specific resource the player has.
+     * @param res the resource to check
+     * @param v the value to update
+     */
     public void updateNbResource(Resource res, int v) {
         resources.updateNbResource(res, v);
     }
 
+    /**
+     * Update the number of points the player has.
+     * @param point the value to update
+     * @return void
+     */
     public void updatePoints(int point) {
         points += point;
     }
 
+    /**
+     * Add a purchased card to the player's collection.
+     * @param dev the card to add
+     * @return void
+     */
     public void addPurchasedCard(DevCard dev) {
         purchasedCards.add(dev);
     }
 
+    /**
+     * Check if the player can buy a card.
+     * @param dev the card to check
+     * @return true if the player can buy the card, false otherwise
+     */
     public boolean canBuyCard(DevCard dev) {
-        if (dev != null){
+        if (dev != null) {
             if (
-            getNbResource(Resource.DIAMOND) + getResFromCards(Resource.DIAMOND) <
-            dev.getCost().getNbResource(Resource.DIAMOND)
+                getNbResource(Resource.DIAMOND) +
+                    getResFromCards(Resource.DIAMOND) <
+                dev.getCost().getNbResource(Resource.DIAMOND)
             ) {
                 return false;
             }
             if (
-            getNbResource(Resource.SAPPHIRE) + getResFromCards(Resource.SAPPHIRE) <
-            dev.getCost().getNbResource(Resource.SAPPHIRE)
+                getNbResource(Resource.SAPPHIRE) +
+                    getResFromCards(Resource.SAPPHIRE) <
+                dev.getCost().getNbResource(Resource.SAPPHIRE)
             ) {
                 return false;
             }
             if (
-            getNbResource(Resource.EMERALD) + getResFromCards(Resource.EMERALD) <
-            dev.getCost().getNbResource(Resource.EMERALD)
+                getNbResource(Resource.EMERALD) +
+                    getResFromCards(Resource.EMERALD) <
+                dev.getCost().getNbResource(Resource.EMERALD)
             ) {
                 return false;
             }
             if (
-            getNbResource(Resource.ONYX) + getResFromCards(Resource.ONYX) <
-            dev.getCost().getNbResource(Resource.ONYX)
+                getNbResource(Resource.ONYX) + getResFromCards(Resource.ONYX) <
+                dev.getCost().getNbResource(Resource.ONYX)
             ) {
                 return false;
             }
             if (
-            getNbResource(Resource.RUBY) + getResFromCards(Resource.RUBY) <
-            dev.getCost().getNbResource(Resource.RUBY)
+                getNbResource(Resource.RUBY) + getResFromCards(Resource.RUBY) <
+                dev.getCost().getNbResource(Resource.RUBY)
             ) {
                 return false;
             }
             return true;
-        }
-        else{
+        } else {
             return false;
         }
-
     }
 
     public abstract Action chooseAction(Player player, Board board);

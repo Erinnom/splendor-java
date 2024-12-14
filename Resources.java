@@ -7,12 +7,11 @@
  */
 public class Resources {
 
-    // Attributes
+    // Attributs
     private int[] resources;
 
     /**
      * Constructs a Resources object with the specified counts for each resource.
-     *
      * @param countDIAMOND the number of DIAMOND resources
      * @param countSAPPHIRE the number of SAPPHIRE resources
      * @param countEMERALD the number of EMERALD resources
@@ -36,7 +35,6 @@ public class Resources {
 
     /**
      * Gets the count of the specified resource.
-     *
      * @param resource the type of resource (DIAMOND, SAPPHIRE, EMERALD, RUBY, ONYX)
      * @return the count of the specified resource
      */
@@ -58,7 +56,6 @@ public class Resources {
 
     /**
      * Sets the count of the specified resource.
-     *
      * @param resource the type of resource (DIAMOND, SAPPHIRE, EMERALD, RUBY, ONYX)
      * @param r the new count for the resource (must be non-negative)
      */
@@ -87,7 +84,6 @@ public class Resources {
     /**
      * Updates the count of the specified resource by a given value.
      * The count cannot go below zero.
-     *
      * @param resource the type of resource (DIAMOND, SAPPHIRE, EMERALD, RUBY, ONYX)
      * @param r the value to add (positive or negative) to the resource count
      */
@@ -123,7 +119,6 @@ public class Resources {
 
     /**
      * Retrieves an array of available resources (those with a count greater than zero).
-     *
      * @return an array of Resource types that are available
      */
     public Resource[] getAvaibleResources() {

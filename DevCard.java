@@ -2,9 +2,9 @@
  * Represents a Development Card (DevCard) in a game.
  * Each DevCard has a tier, resource cost, point value, and a resource type it generates.
  * It can be displayed in both text and symbolic formats.
- * 
+ *
  * Implements the `Displayable` interface for display purposes.
- * 
+ *
  * @author Erinnom
  */
 public class DevCard implements Displayable {
@@ -27,21 +27,46 @@ public class DevCard implements Displayable {
      * @param points the number of points the card provides
      * @param type the type of resource this card generates
      */
-    public DevCard(int tier, int countDIAMOND, int countSAPPHIRE, int countEMERALD, int countRUBY, int countONYX, int points, Resource type) {
+    public DevCard(
+        int tier,
+        int countDIAMOND,
+        int countSAPPHIRE,
+        int countEMERALD,
+        int countRUBY,
+        int countONYX,
+        int points,
+        Resource type
+    ) {
         this.tier = tier;
         this.points = points;
         this.resourceType = type;
-        this.coutResources = new Resources(countDIAMOND, countSAPPHIRE, countEMERALD, countRUBY, countONYX);
+        this.coutResources = new Resources(
+            countDIAMOND,
+            countSAPPHIRE,
+            countEMERALD,
+            countRUBY,
+            countONYX
+        );
     }
+
     // Methodes
-    
-    public int getTier(){
+
+    /**
+     * Get the tier of the card
+     * @return int tier
+     */
+    public int getTier() {
         return tier;
     }
-    
-    public Resource getResourceType(){
+
+    /**
+     * Get the type of the card
+     * @return Resource resourceType
+     */
+    public Resource getResourceType() {
         return resourceType;
     }
+
     /**
      * Gets the point value of the card.
      *
@@ -58,7 +83,7 @@ public class DevCard implements Displayable {
     public String[] toStringArray() {
         String pointStr = "  ";
         if (getPoints() > 0) {
-            pointStr = new String(new int[] {getPoints() + 9311}, 0, 1); // Unicode for circled numbers
+            pointStr = new String(new int[] { getPoints() + 9311 }, 0, 1); // Unicode for circled numbers
         }
         String[] cardStr = {
             "\u250C\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510",
@@ -68,15 +93,26 @@ public class DevCard implements Displayable {
             "\u2502        \u2502",
             "\u2502        \u2502",
             "\u2502        \u2502",
-            "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518"
+            "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518",
         };
 
         // Update the cost representation
         int i = 6;
-        Resource[] resources = {Resource.DIAMOND, Resource.SAPPHIRE, Resource.EMERALD, Resource.ONYX, Resource.RUBY};
+        Resource[] resources = {
+            Resource.DIAMOND,
+            Resource.SAPPHIRE,
+            Resource.EMERALD,
+            Resource.ONYX,
+            Resource.RUBY,
+        };
         for (Resource res : resources) {
             if (getCost().getNbResource(res) > 0) {
-                cardStr[i] = "\u2502" + getCost().getNbResource(res) + " " + res.toSymbol() + "    \u2502";
+                cardStr[i] =
+                    "\u2502" +
+                    getCost().getNbResource(res) +
+                    " " +
+                    res.toSymbol() +
+                    "    \u2502";
                 i--;
             }
         }
@@ -85,7 +121,6 @@ public class DevCard implements Displayable {
 
     /**
      * Gets the resource cost of the card.
-     *
      * @return a Resources object representing the cost of the card
      */
     public Resources getCost() {
@@ -105,7 +140,7 @@ public class DevCard implements Displayable {
             "\u2502   /\\   \u2502",
             "\u2502  /  \\  \u2502",
             "\u2502 /    \\ \u2502",
-            "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518"
+            "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518",
         };
     }
 
@@ -114,8 +149,15 @@ public class DevCard implements Displayable {
      * @return a string representation of the card
      */
     public String toString() {
-        String cardStr = getPoints() + "pts, type " + resourceType.toSymbol() + " | coût: ";
-        Resource[] resources = {Resource.DIAMOND, Resource.SAPPHIRE, Resource.EMERALD, Resource.ONYX, Resource.RUBY};
+        String cardStr =
+            getPoints() + "pts, type " + resourceType.toSymbol() + " | coût: ";
+        Resource[] resources = {
+            Resource.DIAMOND,
+            Resource.SAPPHIRE,
+            Resource.EMERALD,
+            Resource.ONYX,
+            Resource.RUBY,
+        };
         for (Resource res : resources) {
             if (getCost().getNbResource(res) > 0) {
                 cardStr += getCost().getNbResource(res) + res.toSymbol() + " ";

@@ -14,25 +14,40 @@ public class BuyCardAction implements Action {
 
     /**
      * Constructeur d'objets de classe BuyCardActionù
+     * @param card la carte à acheter
+     * @return void
      */
     public BuyCardAction(DevCard card) {
         this.card = card;
     }
 
     /**
-     * Un exemple de méthode - remplacez ce commentaire par le vôtre
-     *
-     * @param  y   le paramètre de la méthode
-     * @return     la somme de x et de y
+     * Méthode permettant de traiter l'action d'achat d'une carte
+     * @param player le joueur qui achète la carte
+     * @param board le plateau de jeu
+     * @return void
      */
     public void process(Player player, Board board) {
         int cout;
         if (player.canBuyCard(card)) {
-            Resource[] resourceAvailable = card.coutResources.getAvaibleResources();
+            Resource[] resourceAvailable =
+                card.coutResources.getAvaibleResources();
             for (int i = 0; i < resourceAvailable.length; i++) {
                 cout = card.coutResources.getNbResource(resourceAvailable[i]);
-                player.updateNbResource(resourceAvailable[i], - Math.max(0,(cout - player.getResFromCards(resourceAvailable[i]))));
-                board.updateNbResource(resourceAvailable[i], Math.max(0,(cout - player.getResFromCards(resourceAvailable[i]))));
+                player.updateNbResource(
+                    resourceAvailable[i],
+                    -Math.max(
+                        0,
+                        (cout - player.getResFromCards(resourceAvailable[i]))
+                    )
+                );
+                board.updateNbResource(
+                    resourceAvailable[i],
+                    Math.max(
+                        0,
+                        (cout - player.getResFromCards(resourceAvailable[i]))
+                    )
+                );
             }
             player.addPurchasedCard(card);
             player.updatePoints(card.points);
@@ -43,13 +58,17 @@ public class BuyCardAction implements Action {
                 "Vous ne pouvez pas acheter cette carte, veuillez en choisir une autre\n"
             );
         }
-
-
     }
 
     public String toString(DevCard card, Player player) {
         String msg;
-        return (msg = "Le joueur " + player.getName() +" a acheté la carte suivante : " + card + "\n");
+        return (
+            msg =
+                "Le joueur " +
+                player.getName() +
+                " a acheté la carte suivante : " +
+                card +
+                "\n"
+        );
     }
 }
-

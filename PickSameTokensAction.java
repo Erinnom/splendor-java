@@ -17,6 +17,12 @@ public class PickSameTokensAction implements Action {
         resource = res;
     }
 
+    /**
+     * Méthode permettant de traiter l'action de prendre 2 ressources identiques
+     * @param player le joueur qui prend les ressources
+     * @param board le plateau de jeu
+     * @return void
+     */
     public void process(Player player, Board board) {
         board.updateNbResource(resource, -2);
         player.updateNbResource(resource, 2);
@@ -27,7 +33,11 @@ public class PickSameTokensAction implements Action {
         String msg = "";
         return (
             msg =
-                "Le joueur " + player.getName() + " à choisi de prendre 2 ressources de types " + resource + "\n"
+                "Le joueur " +
+                player.getName() +
+                " à choisi de prendre 2 ressources de types " +
+                resource +
+                "\n"
         );
     }
 }

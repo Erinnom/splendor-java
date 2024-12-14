@@ -4,9 +4,9 @@
  * @since       1.0
  */
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Game {
@@ -20,48 +20,60 @@ public class Game {
      */
     private static final int ROWS_BOARD = 36, ROWS_CONSOLE = 8, COLS = 82;
     public static final Display display = new Display(
-            ROWS_BOARD,
-            ROWS_CONSOLE,
-            COLS
-        );
+        ROWS_BOARD,
+        ROWS_CONSOLE,
+        COLS
+    );
 
     private Board board;
     private List<Player> players;
     private Scanner scan = new Scanner(Game.display.in);
 
-    public static void main(String[] args) throws IllegalArgumentException,FileNotFoundException {
+    public static void main(String[] args)
+        throws IllegalArgumentException, FileNotFoundException {
         display.outBoard.println("Bienvenue sur Splendor !");
 
         int nbJoueur = 2;
-        boolean nbValide=false; 
+        boolean nbValide = false;
         String entree;
-        Game.display.out.println("entrez le nombre de joueur (entre 2 et 4) : ");
+        Game.display.out.println(
+            "entrez le nombre de joueur (entre 2 et 4) : "
+        );
 
-        try( Scanner scan = new Scanner(Game.display.in) ){
-            while (nbValide != true)  {
+        try (Scanner scan = new Scanner(Game.display.in)) {
+            while (nbValide != true) {
                 entree = scan.next();
                 try {
                     nbJoueur = Integer.parseInt(entree);
-                    if( nbJoueur>1 && nbJoueur<5){
+                    if (nbJoueur > 1 && nbJoueur < 5) {
                         nbValide = true;
-                    }else{
-                        Game.display.out.println(nbJoueur + " n'est pas un nombre de joueur valide");
+                    } else {
+                        Game.display.out.println(
+                            nbJoueur + " n'est pas un nombre de joueur valide"
+                        );
                     }
-
                 } catch (NumberFormatException e) {
                     Game.display.out.println("Il faut saisir un nombre.");
                 }
-
             }
             Game game = new Game(nbJoueur);
             game.play();
-            System.out.println("Entrer n'importe quel message pour fermer la fenêtre");
+            System.out.println(
+                "Entrer n'importe quel message pour fermer la fenêtre"
+            );
             scan.next();
             display.close();
         }
     }
 
-    public Game(int nbOfPlayers) throws FileNotFoundException,IllegalArgumentException {
+    /**
+     * Constructeur de la classe Game
+     * @param nbOfPlayers le nombre de joueurs
+     * @throws FileNotFoundException
+     * @throws IllegalArgumentException
+     */
+    public Game(int nbOfPlayers)
+        throws FileNotFoundException, IllegalArgumentException {
         if (nbOfPlayers >= 2 && nbOfPlayers <= 4) {
             board = new Board(nbOfPlayers);
             players = new ArrayList();
@@ -87,10 +99,18 @@ public class Game {
         }
     }
 
+    /**
+     * Méthode permettant de récupérer le nombre de joueurs
+     * @return le nombre de joueurs
+     */
     public int getNbPlayers() {
         return players.size();
     }
 
+    /**
+     * Méthode permettant de récupérer le plateau de jeu
+     * @return void
+     */
     private void display(int currentPlayer) {
         String[] boardDisplay = board.toStringArray();
         String[] playerDisplay = Display.emptyStringArray(0, 0);
@@ -111,20 +131,26 @@ public class Game {
             );
         }
         String[] mainDisplay = Display.concatStringArray(
-                boardDisplay,
-                playerDisplay,
-                false
-            );
+            boardDisplay,
+            playerDisplay,
+            false
+        );
 
         display.outBoard.clean();
         display.outBoard.println(String.join("\n", mainDisplay));
     }
 
+    /**
+     * Méthode permettant de jouer une partie
+     * @return void
+     */
     public void play() {
         int turn = 0;
         while (!isGameOver()) {
             this.display(this.getNbPlayers());
-            Game.display.out.println("Tour de : " + players.get(turn).getName()+ "\n");
+            Game.display.out.println(
+                "Tour de : " + players.get(turn).getName() + "\n"
+            );
             this.move(players.get(turn));
 
             if (players.get(turn).getNbTokens() > 10) {
@@ -132,24 +158,37 @@ public class Game {
             }
 
             turn++;
-            if (turn> this.getNbPlayers()-1){
+            if (turn > this.getNbPlayers() - 1) {
                 turn = 0;
             }
-
         }
         this.gameOver();
     }
 
+    /**
+     * Méthode permettant de faire jouer un joueur
+     * @param player le joueur au tour de jouer
+     * @return void
+     */
     private void move(Player player) {
         Action action = player.chooseAction(player, board);
         action.process(player, board);
     }
 
+    /**
+     * Méthode permettant de défausser des jetons
+     * @param player le joueur qui doit défausser des jetons
+     * @return void
+     */
     private void discardToken(Player player) {
         Action discard = player.chooseDiscardingTokens();
         discard.process(player, board);
     }
 
+    /**
+     * Méthode permettant de savoir si la partie est terminée
+     * @return boolean
+     */
     public boolean isGameOver() {
         for (Player player : players) {
             if (player.getPoints() > 15) {
@@ -159,6 +198,10 @@ public class Game {
         return false;
     }
 
+    /**
+     * Méthode permettant de déterminer le gagnant de la partie
+     * @return void
+     */
     private void gameOver() {
         boolean draw = false;
         int winner = 0;
@@ -167,7 +210,7 @@ public class Game {
             if (players.get(i).getPoints() > players.get(winner).getPoints()) {
                 winner = i;
             } else if (
-            players.get(i).getPoints() == players.get(winner).getPoints()
+                players.get(i).getPoints() == players.get(winner).getPoints()
             ) {
                 draw = true;
                 winner2 = i;
@@ -175,8 +218,8 @@ public class Game {
         }
         if (draw) {
             if (
-            players.get(winner).getNbPurchasedCards() <
-            players.get(winner2).getNbPurchasedCards()
+                players.get(winner).getNbPurchasedCards() <
+                players.get(winner2).getNbPurchasedCards()
             ) {
                 winner = winner2;
             }
