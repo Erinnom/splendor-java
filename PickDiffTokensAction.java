@@ -36,7 +36,7 @@ public class PickDiffTokensAction implements Action {
         String msg = "";
         return (
             msg =
-                "Le joueur" + player.getName() +" à choisi de prendre 3 ressources différentes de types " +
+                "Le joueur " + player.getName() +" à choisi de prendre 3 ressources différentes de types " +
                 resource1 +
                 ", " +
                 resource2 +

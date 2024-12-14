@@ -142,12 +142,14 @@ public class Board implements Displayable {
         int tier_card = card.getTier();
         int i = 0;
         while (i < 4 && visibleCards[tier_card-1][i] != card){
-
             i++;
         }
-        if ( i < 3) {
-            if (visibleCards[tier_card-1][i] == card) {
+        if (visibleCards[tier_card-1][i] == card) {
+            if(stackCards.get(tier_card-1).size() !=0){
                 visibleCards[tier_card-1][i] = stackCards.get(tier_card-1).pop();
+            }
+            else{
+                visibleCards[tier_card-1][i] = null;                
             }
         }
     }
@@ -232,7 +234,7 @@ public class Board implements Displayable {
         String[] res = Display.emptyStringArray(0, 0);
         //Deck display
         String[] deckDisplay = Display.emptyStringArray(0, 0);
-        for(int i=stackCards.size();i>0;i--){
+        for(int i=1;i<stackCards.size()+1;i++){
             deckDisplay = Display.concatStringArray(deckDisplay, deckToStringArray(i), true);
         }
 
