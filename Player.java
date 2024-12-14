@@ -56,7 +56,7 @@ public abstract class Player implements Displayable, Action {
                 3 + (Resource.values().length - 1 - res.ordinal())
             );
             strPlayer[3 + (Resource.values().length - 1 - res.ordinal())] =
-            res.toSymbol() +
+           res.toSymbol() +
             " (" +
             resources.getNbResource(res) +
             ") [" +

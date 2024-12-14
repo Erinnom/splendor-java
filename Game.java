@@ -55,7 +55,7 @@ public class Game {
             }
             Game game = new Game(nbJoueur);
             game.play();
-            System.out.println("Entrer n'importe quel message pour fermer la fenêtre");
+            Game.display.out.println("Entrer n'importe quel message pour fermer la fenêtre");
             scan.next();
             display.close();
         }
@@ -181,7 +181,7 @@ public class Game {
                 winner = winner2;
             }
         }
-        System.out.println(
+        Game.display.out.println(
             "félicitation à " +
             players.get(winner).getName() +
             " pour sa victoire écrasante sur ces adversaires"
