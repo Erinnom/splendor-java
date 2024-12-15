@@ -10,22 +10,29 @@ import java.util.Collections;
 
 public class Board implements Displayable {
     // Attributs
-    
+
     private ArrayList<Stack<DevCard>> stackCards;
     private DevCard[][] visibleCards;
     private Resources resources;
-    
+
     // Constructeur
-    
+
     public Board(int nbJoueurs) throws FileNotFoundException {
         resources = new Resources(5,4,3,2,1);
         visibleCards = new DevCard[3][4];
         String nom_fichier = "stats.csv";
-        stackCards = new ArrayList<Stack<DevCard>>();
+
         Stack<DevCard> tier1 = new Stack<DevCard>();
         Stack<DevCard> tier2 = new Stack<DevCard>();
         Stack<DevCard> tier3 = new Stack<DevCard>();
+        
+        stackCards = new ArrayList<Stack<DevCard>>();        
+        stackCards.add(tier1);
+        stackCards.add(tier2);
+        stackCards.add(tier3);
+
         visibleCards = new DevCard[3][4];
+
         boolean notFirstLine = false;
         try (Scanner scanner = new Scanner(new File(nom_fichier))) {
             while (scanner.hasNext()) {
@@ -44,15 +51,7 @@ public class Board implements Displayable {
                         //Créer la carte
                         DevCard newCard = new DevCard(tier, coutDIAMOND, coutSAPPHIRE, coutEMERALD, coutRUBY, coutONYX, points, type);
                         //Ensuite, ajouter au tas de carte associé.
-                        if (tier == 1){
-                            tier1.push(newCard);
-                        }
-                        else if(tier == 2){
-                            tier2.push(newCard);
-                        }
-                        else if(tier == 3){
-                            tier3.push(newCard);
-                        }
+                        stackCards.get(tier - 1).push(newCard);
                     }
                 }
                 else{
@@ -60,14 +59,12 @@ public class Board implements Displayable {
                 }
             }
         }
-        
-        //Mettre les tas de cartes dans stacksCards
+
+        //Mélange des cartes
         Collections.shuffle(tier1);
         Collections.shuffle(tier2);
         Collections.shuffle(tier3);
-        stackCards.add(tier1);
-        stackCards.add(tier2);
-        stackCards.add(tier3);
+
         //Rendre visible les 4 premières carte de chaque tas
         for(int i=0; i<stackCards.size();i++){
             for(int j=0; j<4;j++){
@@ -85,7 +82,7 @@ public class Board implements Displayable {
         }
         resources = new Resources(nbRes,nbRes,nbRes,nbRes,nbRes);
     }
-    
+
     // Méthodes
     /**
      * Get the amount of a resource
@@ -95,7 +92,7 @@ public class Board implements Displayable {
     public int getNbResource(Resource resource){
         return resources.getNbResource(resource);
     }
-    
+
     /**
      * set a  specific the amount of a resource
      * @param Resource resource
@@ -104,7 +101,7 @@ public class Board implements Displayable {
     public void setNbResource(Resource resource, int r){
         resources.setNbResource(resource,r);
     }
-    
+
     /**
      * Add or remove a specific amount of resource
      * @param Resource resource
@@ -113,8 +110,7 @@ public class Board implements Displayable {
     public void updateNbResource(Resource resource, int r){
         resources.updateNbResource(resource,r);
     }
-    
-    
+
     /**
      * Get the list of avaible resources types 
      * @return list of resources
@@ -122,7 +118,7 @@ public class Board implements Displayable {
     public Resource[] getAvaibleResources(){
         return resources.getAvaibleResources();
     }
-    
+
     /**
      * Get a visible card
      * @param int tier & int colone
@@ -132,7 +128,7 @@ public class Board implements Displayable {
         //return visibleCards[3-(tier)][colone-1];
         return visibleCards[tier-1][colone-1];
     }
-    
+
     /**
      * Replace a DevCard by another
      * @param DevCard card
@@ -153,7 +149,7 @@ public class Board implements Displayable {
             }
         }
     }
-    
+
     /**
      * Get a card from a stack following the tier categorie
      * @param int tier
@@ -162,7 +158,7 @@ public class Board implements Displayable {
     public DevCard drawCard(int tier){
         return  stackCards.get(tier).pop();
     }
-    
+
     /**
      * Check if a player can take two identical resources
      * @param Resource resource
@@ -174,7 +170,7 @@ public class Board implements Displayable {
         } 
         return true;
     }
-    
+
     /**
      * Check if a player can take three differents resources
      * @param list of resources
@@ -188,7 +184,7 @@ public class Board implements Displayable {
         }
         return false;
     }
-    
+
     /* --- Stringers --- */
 
     private String[] deckToStringArray(int tier){
@@ -206,14 +202,14 @@ public class Board implements Displayable {
 
         int nbCards = stackCards.get(tier-1).size(); //- AREMPLEACER par le nombre de cartes présentes
         String[] deckStr = {"\u250C\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510  ",
-                            "\u2502        \u2502\u2572 ",
-                            "\u2502 reste: \u2502 \u2502",
-                            "\u2502   "+String.format("%02d", nbCards)+"   \u2502 \u2502",
-                            "\u2502 carte"+(nbCards>1 ? "s" : " ")+" \u2502 \u2502",
-                            "\u2502 tier "+tier+" \u2502 \u2502",
-                            "\u2502        \u2502 \u2502",
-                            "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2502",
-                            " \u2572________\u2572\u2502"};
+                "\u2502        \u2502\u2572 ",
+                "\u2502 reste: \u2502 \u2502",
+                "\u2502   "+String.format("%02d", nbCards)+"   \u2502 \u2502",
+                "\u2502 carte"+(nbCards>1 ? "s" : " ")+" \u2502 \u2502",
+                "\u2502 tier "+tier+" \u2502 \u2502",
+                "\u2502        \u2502 \u2502",
+                "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2502",
+                " \u2572________\u2572\u2502"};
         return deckStr;
     }
 
@@ -248,7 +244,7 @@ public class Board implements Displayable {
             cardDisplay = Display.concatStringArray(cardDisplay, Display.emptyStringArray(1, 40), true);
             cardDisplay = Display.concatStringArray(cardDisplay, tierCardsDisplay, true);
         }
-        
+
         res = Display.concatStringArray(deckDisplay, cardDisplay, false);
         res = Display.concatStringArray(res, Display.emptyStringArray(1, 52), true);
         res = Display.concatStringArray(res, resourcesToStringArray(), true);
@@ -256,12 +252,11 @@ public class Board implements Displayable {
         res = Display.concatStringArray(res, Display.emptyStringArray(1, 54, "\u2509"), true);
         return res;
     }
-    
-    
+
     @Override
     public String[] toStringArray() {
         return boardToStringArray();
     }
-    
+
 }
 
