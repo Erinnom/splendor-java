@@ -122,13 +122,16 @@ public class Resources {
      * @return an array of Resource types that are available
      */
     public Resource[] getAvaibleResources() {
+        
+        // count the number of resources with more than 0 resources
         int count_avaible_resources = 0;
         for (int i = 0; i < 5; i++) {
             if (resources[i] > 0) {
                 count_avaible_resources++;
             }
         }
-
+        
+        // create the fix list
         Resource[] avaible_resources = new Resource[count_avaible_resources];
         int indice = 0;
         for (int i = 0; i < 5; i++) {
