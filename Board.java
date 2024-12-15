@@ -18,14 +18,11 @@ public class Board implements Displayable {
 
     // Constructeur
 
-<<<<<<< HEAD
     /**
      * Constructeur de la classe Board
      * @param nbJoueurs le nombre de joueurs
      * @throws FileNotFoundException
      */
-=======
->>>>>>> Victor
     public Board(int nbJoueurs) throws FileNotFoundException {
         resources = new Resources(5, 4, 3, 2, 1);
         visibleCards = new DevCard[3][4];
@@ -69,17 +66,9 @@ public class Board implements Displayable {
                             type
                         );
                         //Ensuite, ajouter au tas de carte associé.
-<<<<<<< HEAD
-                        if (tier == 1) {
-                            tier1.push(newCard);
-                        } else if (tier == 2) {
-                            tier2.push(newCard);
-                        } else if (tier == 3) {
-                            tier3.push(newCard);
-                        }
-=======
+
                         stackCards.get(tier - 1).push(newCard);
->>>>>>> Victor
+
                     }
                 } else {
                     notFirstLine = true;
@@ -87,11 +76,8 @@ public class Board implements Displayable {
             }
         }
 
-<<<<<<< HEAD
-        //Mettre les tas de cartes dans stacksCards
-=======
+
         //Mélange des cartes
->>>>>>> Victor
         Collections.shuffle(tier1);
         Collections.shuffle(tier2);
         Collections.shuffle(tier3);
@@ -232,20 +218,6 @@ public class Board implements Displayable {
          *  ╲________╲│
          */
 
-<<<<<<< HEAD
-        int nbCards = stackCards.get(tier - 1).size(); //- AREMPLEACER par le nombre de cartes présentes
-        String[] deckStr = {
-            "\u250C\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510  ",
-            "\u2502        \u2502\u2572 ",
-            "\u2502 reste: \u2502 \u2502",
-            "\u2502   " + String.format("%02d", nbCards) + "   \u2502 \u2502",
-            "\u2502 carte" + (nbCards > 1 ? "s" : " ") + " \u2502 \u2502",
-            "\u2502 tier " + tier + " \u2502 \u2502",
-            "\u2502        \u2502 \u2502",
-            "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2502",
-            " \u2572________\u2572\u2502",
-        };
-=======
         int nbCards = stackCards.get(tier-1).size(); //- AREMPLEACER par le nombre de cartes présentes
         String[] deckStr = {"\u250C\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510  ",
                 "\u2502        \u2502\u2572 ",
@@ -256,7 +228,6 @@ public class Board implements Displayable {
                 "\u2502        \u2502 \u2502",
                 "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2502",
                 " \u2572________\u2572\u2502"};
->>>>>>> Victor
         return deckStr;
     }
 
@@ -334,8 +305,4 @@ public class Board implements Displayable {
     public String[] toStringArray() {
         return boardToStringArray();
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> Victor
 }
